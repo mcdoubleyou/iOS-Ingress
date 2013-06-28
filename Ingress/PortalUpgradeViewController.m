@@ -276,30 +276,39 @@
 			[[AppDelegate instance].window addSubview:HUD];
 			[HUD show:YES];
 
-			[[API sharedInstance] deployResonator:resonatorItem toPortal:self.portal toSlot:slot completionHandler:^(NSString *errorStr) {
-
+			@try {
+				[[API sharedInstance] deployResonator:resonatorItem toPortal:self.portal toSlot:slot completionHandler:^(NSString *errorStr) {
+					
+					[HUD hide:YES];
+					
+					if (errorStr) {
+						[Utilities showWarningWithTitle:errorStr];
+					} else {
+						
+						dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+							[self refresh];
+						});
+						if ([[NSUserDefaults standardUserDefaults] boolForKey:DeviceSoundToggleEffects]) {
+							[[SoundManager sharedManager] playSound:@"Sound/sfx_resonator_power_up.aif"];
+						}
+						if ([[NSUserDefaults standardUserDefaults] boolForKey:DeviceSoundToggleSpeech]) {
+							[[API sharedInstance] playSounds:@[@"SPEECH_RESONATOR", @"SPEECH_DEPLOYED"]];
+							if ([self.portal.resonators count] == 1) {
+								[[API sharedInstance] playSounds:@[@"SPEECH_PORTAL", @"SPEECH_ONLINE", @"SPEECH_GOOD_WORK"]];
+							}
+						}
+					}
+					
+				}];
+			} @catch (NSException *exception) {
 				[HUD hide:YES];
-
-				if (errorStr) {
-					[Utilities showWarningWithTitle:errorStr];
-				} else {
-
-					dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-						[self refresh];
-					});
-                    if ([[NSUserDefaults standardUserDefaults] boolForKey:DeviceSoundToggleEffects]) {
-                        [[SoundManager sharedManager] playSound:@"Sound/sfx_resonator_power_up.aif"];
-                    }
-                    if ([[NSUserDefaults standardUserDefaults] boolForKey:DeviceSoundToggleSpeech]) {
-                        [[API sharedInstance] playSounds:@[@"SPEECH_RESONATOR", @"SPEECH_DEPLOYED"]];
-                        if ([self.portal.resonators count] == 1) {
-                            [[API sharedInstance] playSounds:@[@"SPEECH_PORTAL", @"SPEECH_ONLINE", @"SPEECH_GOOD_WORK"]];
-                        }
-                    }
-				}
-
-			}];
-
+				
+				[Utilities showWarningWithTitle:@"Application error"];
+				[[[GAI sharedInstance] defaultTracker] sendException:NO withDescription:@"%@: %@", @"deployResonatorOfLevel", [exception reason]];
+#if DEBUG
+				NSLog(@"%@", [NSString stringWithFormat:@"Error %@: %@\n%@", @"deployResonatorOfLevel", [exception reason], [exception callStackSymbols]]);
+#endif
+			}
 		}
 
 	} else {
@@ -423,7 +432,10 @@
 		removeButton.titleLabel.font = [UIFont fontWithName:[[[UILabel appearance] font] fontName] size:20];
 		[removeButton setTitle:@"Remove Mod" forState:UIControlStateNormal];
 		if ([mod.owner.guid isEqualToString:player.guid]) {
-			[removeButton addTarget:self action:@selector(removeModButtonPressed::) forControlEvents:UIControlEventTouchUpInside];
+            [removeButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+                [HUD hide:YES];
+                [self removeModButtonPressed:removeButton];
+            }];
 		} else {
 			[removeButton setEnabled:NO];
 			[removeButton setErrorString:@"Not Owner"];
@@ -606,6 +618,8 @@
 		if (errorStr) {
 			[Utilities showWarningWithTitle:errorStr];
 		}
+        
+        [self refresh];
 
 	}];
 

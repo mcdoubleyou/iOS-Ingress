@@ -67,6 +67,11 @@
 	apLabel.font = [UIFont fontWithName:[[[UILabel appearance] font] fontName] size:20];
 	xmLabel.font = [UIFont fontWithName:[[[UILabel appearance] font] fontName] size:20];
 	virusChoosePortalLabel.font = [UIFont fontWithName:[[[UILabel appearance] font] fontName] size:20];
+    
+    [opsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+	[opsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    opsButton.titleLabel.font = [UIFont fontWithName:[[[UILabel appearance] font] fontName] size:18];
+    opsButton.titleLabel.layer.shadowColor = [UIColor whiteColor].CGColor;
 
 	apLabel.hidden = YES;
 	xmLabel.hidden = YES;
@@ -81,15 +86,15 @@
 
     [self validateLocationServicesAuthorization];
 
-	CGFloat offset = 28;
-	if ([Utilities isOS7]) { offset = 48; }
+	CGFloat offset = 32;
+	if ([Utilities isOS7]) { offset += 20; }
 	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
 	CommViewController *commVC = [storyboard instantiateViewControllerWithIdentifier:@"CommViewController"];
 	commVC.view.frame = CGRectMake(0, self.view.frame.size.height-offset, 320, 393);
 	[self.view addSubview:commVC.view];
 	[self addChildViewController:commVC];
 	
-	locationManager = [[CLLocationManager alloc] init];
+	locationManager = [SharedLocationManager locationManager];
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
 	if ([locationManager respondsToSelector:@selector(activityType)]) {
@@ -108,14 +113,6 @@
 	mapViewTapGestureRecognizer.numberOfTapsRequired = 2;
 	[_mapView addGestureRecognizer:mapViewTapGestureRecognizer];
 #endif
-
-	if ([Utilities isOS7]) {
-		for (int i = 0; i < 20; i++) {
-			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 + i*0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-				[_mapView setCenterCoordinate:_mapView.centerCoordinate zoomLevel:15 animated:NO];
-			});
-		}
-	}
 
 	UILongPressGestureRecognizer *mapViewLognPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(mapLongPress:)];
 	[_mapView addGestureRecognizer:mapViewLognPressGestureRecognizer];
@@ -147,6 +144,85 @@
 
     _xmOverlay = [XMOverlay new];
     [_mapView addOverlay:_xmOverlay];
+    
+    quickActionsMenu = [[QuickActionsMenu alloc] initWithSeletionHandler:^(int option) {
+
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:DeviceSoundToggleEffects]) {
+            [[SoundManager sharedManager] playSound:@"Sound/sfx_ui_success.aif"];
+        }
+        
+        switch (option) {
+            case 1:
+                [self fireXMP];
+                break;
+            case 2:
+                
+                if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                    UIImagePickerController *cameraVC = [UIImagePickerController new];
+                    cameraVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+//                    cameraVC.delegate = self;
+                    [self presentViewController:cameraVC animated:YES completion:nil];
+                }
+                
+                break;
+            case 4: {
+                
+                NSMutableArray *itemsToCollect = [NSMutableArray array];
+                for (Item *droppedItem in [Item MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"dropped = YES"]]) {
+                    if ([droppedItem distanceFromCoordinate:_mapView.centerCoordinate] <= 40) {
+                        [itemsToCollect addObject:droppedItem];
+                    }
+                }
+                
+                if (itemsToCollect.count > 0) {
+                    
+                    __block MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:[AppDelegate instance].window];
+                    HUD.userInteractionEnabled = YES;
+                    HUD.mode = MBProgressHUDModeIndeterminate;
+                    HUD.dimBackground = YES;
+                    HUD.labelFont = [UIFont fontWithName:[[[UILabel appearance] font] fontName] size:16];
+                    HUD.labelText = @"Picking up...";
+                    [[AppDelegate instance].window addSubview:HUD];
+                    [HUD show:YES];
+                    
+                    if ([[NSUserDefaults standardUserDefaults] boolForKey:DeviceSoundToggleEffects]) {
+                        [[API sharedInstance] playSound:@"SFX_RESOURCE_PICK_UP"];
+                    }
+                    
+                    __block int completed = 0;
+                    for (Item *droppedItem in itemsToCollect) {
+                        
+                        [[API sharedInstance] pickUpItemWithGuid:droppedItem.guid completionHandler:^(NSString *errorStr) {
+                            
+                            completed++;
+                            
+                            if (completed == itemsToCollect.count) {
+                                [HUD hide:YES];
+                            }
+                            
+                            [_mapView removeAnnotation:droppedItem];
+                            
+                            [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+                                Item *item = (Item *)[localContext existingObjectWithID:droppedItem.objectID error:nil];
+                                item.latitude = 0;
+                                item.longitude = 0;
+                                item.dropped = NO;
+                            } completion:^(BOOL success, NSError *error) {
+                                [[NSNotificationCenter defaultCenter] postNotificationName:@"InventoryUpdatedNotification" object:nil];
+                            }];
+                            
+                        }];
+                        
+                    }
+                    
+                }
+                
+                break;
+            }
+        }
+        
+    }];
+    [self.view addSubview:quickActionsMenu];
     
 	[[NSNotificationCenter defaultCenter] addObserverForName:@"DBUpdatedNotification" object:nil queue:nil usingBlock:^(NSNotification *note) {
         //if ([self isSelectedAndTopmost]) {
@@ -567,11 +643,7 @@
 }
 
 - (void)updateRangeCircleView {
-	if ([Utilities isOS7]) {
-		#warning Crashes on iOS7
-		return;
-	}
-	
+    
     // Create view on first update
     if ( ! rangeCircleView) {
         rangeCircleView = [UIView new];
@@ -623,12 +695,12 @@
     
     // Update range diameter
     CGFloat diameter = 0.;
-    if (_mapView.bounds.size.width > 0) {
-        diameter = 100/((_mapView.region.span.latitudeDelta * 111200) / _mapView.bounds.size.width);
+    if (_mapView.bounds.size.width > 0 && _mapView.region.span.latitudeDelta > 0) {
+        diameter = 100./((_mapView.region.span.latitudeDelta * 111200.) / _mapView.bounds.size.width);
     }
     rangeCircleViewWidth.constant = diameter + IG_RANGE_CIRCLE_VIEW_BORDER_WIDTH * 2;
     rangeCircleViewHeight.constant = diameter + IG_RANGE_CIRCLE_VIEW_BORDER_WIDTH * 2;
-    rangeCircleView.layer.cornerRadius = diameter/2;
+    rangeCircleView.layer.cornerRadius = rangeCircleView.layer.cornerRadius = (diameter + IG_RANGE_CIRCLE_VIEW_BORDER_WIDTH * 2.)/2.;
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -756,11 +828,8 @@
 	if (mapView.zoomLevel < 15) {
 		if ([Utilities isOS7]) {
 			#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
-			
-				#warning Doesn't work on iOS 7 and causes infinite loop
-//				[mapView setCenterCoordinate:mapView.centerCoordinate zoomLevel:15 animated:NO];
+                [mapView setCenterCoordinate:mapView.centerCoordinate zoomLevel:15 animated:NO];
 
-//				This new api does nothing too
 //				MKMapCamera *camera = [MKMapCamera camera];
 //				camera.centerCoordinate = mapView.centerCoordinate;
 //				camera.heading = 0;
@@ -768,7 +837,6 @@
 //				camera.altitude = 50;
 //				NSLog(@"camera: %@", camera);
 //				[mapView setCamera:camera animated:NO];
-			
 			#endif
 		} else {
 			[mapView setCenterCoordinate:mapView.centerCoordinate zoomLevel:15 animated:NO];
@@ -798,7 +866,7 @@
 
 	CLLocation *mapLocation = [[CLLocation alloc] initWithLatitude:_mapView.centerCoordinate.latitude longitude:_mapView.centerCoordinate.longitude];
 	CLLocationDistance meters = [mapLocation distanceFromLocation:lastLocation];
-	if (meters == -1 || meters >= 10) {
+	if (meters == -1 || meters >= 10 || isnan(meters)) {
 		lastLocation = mapLocation;
 		[self refresh];
 	}
@@ -939,8 +1007,7 @@
     MKCoordinateSpan span = MKCoordinateSpanMake(latdelta, londelta);
 	MKCoordinateRegion region = MKCoordinateRegionMake(originalRegion.center, span);
 
-	#warning Temporary solution for iOS7
-	if ([Utilities isOS7] || [self zoomLevelForRegion:region] >= 15) {
+	if ([self zoomLevelForRegion:region] >= 15) {
 		[_mapView setRegion:region animated:NO];
 	}
     
@@ -985,31 +1052,33 @@
 }
 
 - (void)mapLongPress:(UILongPressGestureRecognizer *)recognizer {
-	if (recognizer.state == UIGestureRecognizerStateBegan) {
-
-		[self becomeFirstResponder];
-        CGPoint location = [recognizer locationInView:recognizer.view];
-        UIMenuController *menuController = [UIMenuController sharedMenuController];
-        UIMenuItem *resetMenuItem = [[UIMenuItem alloc] initWithTitle:@"Fire XMP" action:@selector(fireXMP)];
-        [menuController setMenuItems:[NSArray arrayWithObject:resetMenuItem]];
-        [menuController setTargetRect:CGRectMake(location.x, location.y, 0.0f, 0.0f) inView:recognizer.view];
-        [menuController setMenuVisible:YES animated:YES];
-
-	}
+    [quickActionsMenu showMenu:recognizer];
+    
+//	if (recognizer.state == UIGestureRecognizerStateBegan) {
+//
+//		[self becomeFirstResponder];
+//        CGPoint location = [recognizer locationInView:recognizer.view];
+//        UIMenuController *menuController = [UIMenuController sharedMenuController];
+//        UIMenuItem *resetMenuItem = [[UIMenuItem alloc] initWithTitle:@"Fire XMP" action:@selector(fireXMP)];
+//        [menuController setMenuItems:[NSArray arrayWithObject:resetMenuItem]];
+//        [menuController setTargetRect:CGRectMake(location.x, location.y, 0.0f, 0.0f) inView:recognizer.view];
+//        [menuController setMenuVisible:YES animated:YES];
+//
+//	}
 }
 
-#pragma mark - Actions
-
-- (BOOL)canBecomeFirstResponder {
-    return YES;
-}
-
-- (BOOL)canPerformAction:(SEL)selector withSender:(id) sender {
-    if (selector == @selector(fireXMP)) {
-        return YES;
-    }
-    return NO;
-}
+//#pragma mark - Actions
+//
+//- (BOOL)canBecomeFirstResponder {
+//    return YES;
+//}
+//
+//- (BOOL)canPerformAction:(SEL)selector withSender:(id) sender {
+//    if (selector == @selector(fireXMP)) {
+//        return YES;
+//    }
+//    return NO;
+//}
 
 #pragma mark - Firing XMP
 
@@ -1018,10 +1087,6 @@
 //	int ap = [[API sharedInstance].playerInfo[@"ap"] intValue];
 //	int level = [API levelForAp:ap];
 //	[self fireXMPOfLevel:level];
-	
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:DeviceSoundToggleEffects]) {
-        [[SoundManager sharedManager] playSound:@"Sound/sfx_ui_success.aif"];
-    }
     
 	MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:[AppDelegate instance].window];
 	HUD.userInteractionEnabled = YES;
