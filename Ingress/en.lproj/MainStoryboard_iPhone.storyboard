@@ -343,43 +343,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Submit Portal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="U9t-f3-N9t">
-                                                    <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <color key="textColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <color key="backgroundColor" red="0.062745098040000002" green="0.12549019610000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DeviceCell" textLabel="Epc-YD-N15" style="IBUITableViewCellStyleDefault" id="pcP-tE-hks">
-                                        <rect key="frame" x="0.0" y="352" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Refresh Inventory" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Epc-YD-N15">
-                                                    <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <color key="textColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <color key="backgroundColor" red="0.062745098040000002" green="0.12549019610000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DeviceCell" textLabel="fpd-4e-tf4" style="IBUITableViewCellStyleDefault" id="FAb-BO-Kvv">
-                                        <rect key="frame" x="0.0" y="396" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Clear Cache" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fpd-4e-tf4">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Force sync" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="U9t-f3-N9t">
                                                     <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <color key="textColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -391,7 +355,7 @@
                                         <color key="backgroundColor" red="0.062745098040000002" green="0.12549019610000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DeviceCell" textLabel="W0u-3p-3hm" style="IBUITableViewCellStyleDefault" id="HKA-XF-2t3">
-                                        <rect key="frame" x="0.0" y="440" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="352" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -409,7 +373,7 @@
                                         <color key="backgroundColor" red="0.062745098040000002" green="0.12549019610000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DeviceCell" textLabel="joh-8C-uVx" style="IBUITableViewCellStyleDefault" id="iNB-Np-bfE">
-                                        <rect key="frame" x="0.0" y="484" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="396" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -427,7 +391,7 @@
                                         <color key="backgroundColor" red="0.062745098040000002" green="0.12549019610000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DeviceCell" textLabel="ZHi-S8-T2q" style="IBUITableViewCellStyleDefault" id="m94-6m-RxF">
-                                        <rect key="frame" x="0.0" y="528" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="440" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -445,7 +409,7 @@
                                         <color key="backgroundColor" red="0.062745098040000002" green="0.12549019610000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DeviceCell" textLabel="FRs-75-LkQ" style="IBUITableViewCellStyleDefault" id="w9k-gk-yQz">
-                                        <rect key="frame" x="0.0" y="572" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="484" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -463,7 +427,7 @@
                                         <color key="backgroundColor" red="0.062745098040000002" green="0.12549019610000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DeviceCell" textLabel="aIG-Sd-Dfc" style="IBUITableViewCellStyleDefault" id="FLn-vk-dIe">
-                                        <rect key="frame" x="0.0" y="616" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="528" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -481,7 +445,7 @@
                                         <color key="backgroundColor" red="0.062745098040000002" green="0.12549019610000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DeviceCell" textLabel="DKd-HK-3YR" style="IBUITableViewCellStyleDefault" id="V4g-Qi-Oht">
-                                        <rect key="frame" x="0.0" y="660" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="572" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -541,7 +505,7 @@
                                                 <constraint firstAttribute="height" constant="26" id="VfN-0M-oDL"/>
                                                 <constraint firstAttribute="width" constant="70" type="user" id="kO4-cP-OKv"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                             <color key="textColor" red="0.5607843137254902" green="0.57647058823529407" blue="0.58431372549019611" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
@@ -1164,9 +1128,6 @@
                             <progressView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p8g-KV-tR1"/>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0 XM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="MGD-pG-MhS" customClass="GlowingLabel">
                                 <color key="backgroundColor" white="0.0" alpha="0.25" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="180" id="W8x-pO-6QG"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -1174,7 +1135,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="stx-mu-7c3">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="16" id="0pu-4m-88p"/>
+                                    <constraint firstAttribute="height" constant="18" id="p7D-AR-1vt"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal">
@@ -1258,61 +1219,47 @@
                         <color key="backgroundColor" red="0.062745098040000002" green="0.12549019610000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="tWm-XI-3eu" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="user" id="01z-S8-sqW"/>
+                            <constraint firstItem="p8g-KV-tR1" firstAttribute="top" secondItem="3" secondAttribute="top" constant="4" type="user" id="0Gs-jM-MFw"/>
                             <constraint firstAttribute="trailing" secondItem="HLu-v7-LER" secondAttribute="trailing" constant="4" id="1Tq-yv-BSH"/>
                             <constraint firstItem="7MI-jq-NjA" firstAttribute="bottom" secondItem="YsP-qD-cUK" secondAttribute="bottom" type="default" id="1b2-yv-0Gg"/>
-                            <constraint firstItem="YsP-qD-cUK" firstAttribute="baseline" secondItem="stx-mu-7c3" secondAttribute="baseline" type="default" id="3Id-gY-VPe"/>
-                            <constraint firstItem="MGD-pG-MhS" firstAttribute="leading" secondItem="stx-mu-7c3" secondAttribute="leading" type="default" id="40P-4Q-Ja3"/>
-                            <constraint firstItem="Z0t-4M-3D3" firstAttribute="top" secondItem="3" secondAttribute="top" constant="40" id="67x-46-zBt"/>
+                            <constraint firstAttribute="trailing" secondItem="p8g-KV-tR1" secondAttribute="trailing" constant="68" type="user" id="3DK-Vs-1ef"/>
+                            <constraint firstAttribute="trailing" secondItem="MGD-pG-MhS" secondAttribute="trailing" constant="68" type="user" id="75A-xJ-KMb"/>
                             <constraint firstItem="rgS-1f-mzM" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="user" id="7re-Hc-PwY"/>
                             <constraint firstAttribute="bottom" secondItem="waa-9V-nq3" secondAttribute="bottom" constant="58" id="8rV-CO-9W5"/>
                             <constraint firstAttribute="centerX" secondItem="BX0-yd-s1M" secondAttribute="centerX" type="user" id="BbK-dH-K9q"/>
-                            <constraint firstItem="oVe-o2-Lr5" firstAttribute="top" secondItem="3" secondAttribute="top" constant="20" symbolic="YES" type="default" id="CPT-9e-rua"/>
-                            <constraint firstItem="stx-mu-7c3" firstAttribute="top" secondItem="HLu-v7-LER" secondAttribute="top" type="default" id="FNU-Rb-pQx"/>
-                            <constraint firstItem="stx-mu-7c3" firstAttribute="baseline" secondItem="YsP-qD-cUK" secondAttribute="baseline" type="default" id="GUB-QB-lqk"/>
-                            <constraint firstItem="stx-mu-7c3" firstAttribute="baseline" secondItem="YsP-qD-cUK" secondAttribute="baseline" type="default" id="J1M-xG-nDU"/>
+                            <constraint firstItem="oVe-o2-Lr5" firstAttribute="top" secondItem="3" secondAttribute="top" constant="22" id="CQ8-hY-jqA"/>
                             <constraint firstAttribute="centerY" secondItem="BX0-yd-s1M" secondAttribute="centerY" type="user" id="KOg-up-E7j"/>
-                            <constraint firstItem="stx-mu-7c3" firstAttribute="leading" secondItem="p8g-KV-tR1" secondAttribute="leading" type="default" id="MRm-Wo-SJH"/>
-                            <constraint firstItem="YsP-qD-cUK" firstAttribute="baseline" secondItem="stx-mu-7c3" secondAttribute="baseline" type="default" id="Os2-HP-jJz"/>
-                            <constraint firstItem="MGD-pG-MhS" firstAttribute="leading" secondItem="oVe-o2-Lr5" secondAttribute="leading" type="default" id="RD1-m0-mBu"/>
-                            <constraint firstItem="stx-mu-7c3" firstAttribute="top" secondItem="7MI-jq-NjA" secondAttribute="top" type="default" id="SMv-lB-JOe"/>
+                            <constraint firstItem="MGD-pG-MhS" firstAttribute="trailing" secondItem="oVe-o2-Lr5" secondAttribute="trailing" type="default" id="L2c-fm-N8w"/>
+                            <constraint firstItem="stx-mu-7c3" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="72" type="user" id="Lqf-WB-WAd"/>
                             <constraint firstItem="DmM-Ra-LBw" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="4" id="Sd1-IL-5mT"/>
+                            <constraint firstItem="stx-mu-7c3" firstAttribute="top" secondItem="p8g-KV-tR1" secondAttribute="top" type="default" id="SpX-7Z-ZTz"/>
+                            <constraint firstItem="stx-mu-7c3" firstAttribute="leading" secondItem="oVe-o2-Lr5" secondAttribute="leading" type="default" id="Sv9-4z-Uer"/>
                             <constraint firstItem="DmM-Ra-LBw" firstAttribute="trailing" secondItem="7MI-jq-NjA" secondAttribute="trailing" type="default" id="TDw-F7-zM2"/>
                             <constraint firstItem="2e8-m3-jc6" firstAttribute="top" secondItem="3" secondAttribute="top" constant="120" type="user" id="TEW-CG-3QY"/>
-                            <constraint firstItem="7MI-jq-NjA" firstAttribute="top" secondItem="3" secondAttribute="top" constant="4" id="TNE-QM-Jjj"/>
-                            <constraint firstItem="p8g-KV-tR1" firstAttribute="top" secondItem="stx-mu-7c3" secondAttribute="top" type="default" id="UYu-vN-LNd"/>
-                            <constraint firstItem="stx-mu-7c3" firstAttribute="trailing" secondItem="p8g-KV-tR1" secondAttribute="trailing" type="default" id="UiL-r6-QGc"/>
+                            <constraint firstItem="7MI-jq-NjA" firstAttribute="top" secondItem="3" secondAttribute="top" constant="4" type="user" id="TNE-QM-Jjj"/>
                             <constraint firstItem="7MI-jq-NjA" firstAttribute="leading" secondItem="YsP-qD-cUK" secondAttribute="leading" type="default" id="VU0-pm-F9E"/>
-                            <constraint firstItem="stx-mu-7c3" firstAttribute="baseline" secondItem="YsP-qD-cUK" secondAttribute="baseline" type="default" id="VdK-SP-U77"/>
+                            <constraint firstItem="MGD-pG-MhS" firstAttribute="top" secondItem="p8g-KV-tR1" secondAttribute="top" type="default" id="Wii-7T-7hd"/>
                             <constraint firstItem="2e8-m3-jc6" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="WxN-4h-K9e"/>
-                            <constraint firstItem="stx-mu-7c3" firstAttribute="top" secondItem="MGD-pG-MhS" secondAttribute="top" type="default" id="XER-Hz-tne"/>
                             <constraint firstItem="rgS-1f-mzM" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="user" id="YHS-V2-4sP"/>
-                            <constraint firstItem="stx-mu-7c3" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="72" id="ZLB-W2-wZl"/>
                             <constraint firstItem="tWm-XI-3eu" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="user" id="a0b-6Q-wAf"/>
-                            <constraint firstItem="oVe-o2-Lr5" firstAttribute="trailing" secondItem="MGD-pG-MhS" secondAttribute="trailing" type="default" id="abA-TK-4XR"/>
-                            <constraint firstItem="YsP-qD-cUK" firstAttribute="baseline" secondItem="stx-mu-7c3" secondAttribute="baseline" type="default" id="ad1-ST-66u"/>
+                            <constraint firstAttribute="trailing" secondItem="stx-mu-7c3" secondAttribute="trailing" constant="68" type="user" id="aQ7-zX-E5c"/>
+                            <constraint firstItem="Z0t-4M-3D3" firstAttribute="top" secondItem="3" secondAttribute="top" constant="44" id="bQG-5H-axq"/>
                             <constraint firstItem="2e8-m3-jc6" firstAttribute="centerX" secondItem="BX0-yd-s1M" secondAttribute="centerX" type="default" id="bYE-DB-xyZ"/>
                             <constraint firstItem="tWm-XI-3eu" firstAttribute="top" secondItem="3" secondAttribute="top" constant="-20" type="user" id="cR0-5C-nDn"/>
-                            <constraint firstItem="YsP-qD-cUK" firstAttribute="baseline" secondItem="stx-mu-7c3" secondAttribute="baseline" type="default" id="cbs-qg-1ur"/>
-                            <constraint firstItem="stx-mu-7c3" firstAttribute="baseline" secondItem="YsP-qD-cUK" secondAttribute="baseline" type="default" id="dGK-E5-Gea"/>
-                            <constraint firstItem="stx-mu-7c3" firstAttribute="baseline" secondItem="YsP-qD-cUK" secondAttribute="baseline" type="default" id="dR0-ZQ-oDo"/>
+                            <constraint firstItem="stx-mu-7c3" firstAttribute="top" secondItem="HLu-v7-LER" secondAttribute="top" type="default" id="dEO-Vg-2nB"/>
                             <constraint firstItem="DmM-Ra-LBw" firstAttribute="leading" secondItem="YsP-qD-cUK" secondAttribute="leading" type="default" id="dh3-cz-KaR"/>
+                            <constraint firstItem="stx-mu-7c3" firstAttribute="bottom" secondItem="MGD-pG-MhS" secondAttribute="bottom" type="default" id="dlx-km-FQ3"/>
                             <constraint firstItem="YsP-qD-cUK" firstAttribute="trailing" secondItem="7MI-jq-NjA" secondAttribute="trailing" type="default" id="ffB-Uo-IGR"/>
                             <constraint firstItem="Z0t-4M-3D3" firstAttribute="trailing" secondItem="oVe-o2-Lr5" secondAttribute="trailing" type="default" id="gpu-aK-mlT"/>
+                            <constraint firstItem="MGD-pG-MhS" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="72" type="user" id="hTj-46-5s7"/>
                             <constraint firstItem="rgS-1f-mzM" firstAttribute="top" secondItem="3" secondAttribute="top" type="user" id="hxy-H6-Nta"/>
-                            <constraint firstItem="stx-mu-7c3" firstAttribute="baseline" secondItem="YsP-qD-cUK" secondAttribute="baseline" type="default" id="ilm-As-YXw"/>
                             <constraint firstItem="YsP-qD-cUK" firstAttribute="bottom" secondItem="DmM-Ra-LBw" secondAttribute="bottom" type="default" id="lKc-zO-q4Y"/>
+                            <constraint firstItem="p8g-KV-tR1" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="72" type="user" id="lWm-Jb-qoP"/>
                             <constraint firstItem="7MI-jq-NjA" firstAttribute="top" secondItem="DmM-Ra-LBw" secondAttribute="top" type="default" id="n7r-wH-d5d"/>
-                            <constraint firstItem="YsP-qD-cUK" firstAttribute="baseline" secondItem="stx-mu-7c3" secondAttribute="baseline" type="default" id="nW9-0C-5Cl"/>
-                            <constraint firstItem="stx-mu-7c3" firstAttribute="baseline" secondItem="YsP-qD-cUK" secondAttribute="baseline" type="default" id="nZH-BZ-M7U"/>
                             <constraint firstItem="YsP-qD-cUK" firstAttribute="top" secondItem="DmM-Ra-LBw" secondAttribute="top" type="default" id="oZr-TM-Yaa"/>
                             <constraint firstAttribute="bottom" secondItem="tWm-XI-3eu" secondAttribute="bottom" type="user" id="pEI-Ct-awM"/>
                             <constraint firstItem="BX0-yd-s1M" firstAttribute="centerX" secondItem="waa-9V-nq3" secondAttribute="centerX" type="default" id="qAN-ce-Iwa"/>
                             <constraint firstItem="Z0t-4M-3D3" firstAttribute="leading" secondItem="oVe-o2-Lr5" secondAttribute="leading" type="default" id="qSO-ca-oXB"/>
-                            <constraint firstItem="stx-mu-7c3" firstAttribute="baseline" secondItem="YsP-qD-cUK" secondAttribute="baseline" type="default" id="ug5-1s-8eU"/>
-                            <constraint firstItem="YsP-qD-cUK" firstAttribute="baseline" secondItem="stx-mu-7c3" secondAttribute="baseline" type="default" id="x2S-xM-crg"/>
-                            <constraint firstItem="MGD-pG-MhS" firstAttribute="trailing" secondItem="stx-mu-7c3" secondAttribute="trailing" type="default" id="yhh-zZ-9Tq"/>
-                            <constraint firstItem="YsP-qD-cUK" firstAttribute="baseline" secondItem="stx-mu-7c3" secondAttribute="baseline" type="default" id="yrG-N7-9Cl"/>
-                            <constraint firstItem="stx-mu-7c3" firstAttribute="bottom" secondItem="MGD-pG-MhS" secondAttribute="bottom" type="default" id="zUt-UB-A8f"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Scanner" id="jRf-fb-O9l"/>
@@ -3946,6 +3893,262 @@
         <image name="shield_verycommon.png" width="50" height="50"/>
         <image name="turretBtn.png" width="50" height="50"/>
     </resources>
+    <classes>
+        <class className="APView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/APView.h"/>
+        </class>
+        <class className="ChooserViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ChooserViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="action:" candidateClass="UIButton"/>
+                <relationship kind="action" name="stepperChanged:" candidateClass="UIStepper"/>
+                <relationship kind="outlet" name="countButton" candidateClass="GUIButton"/>
+                <relationship kind="outlet" name="countLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="countStepper" candidateClass="UIStepper"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CommTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommTableViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="messageLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CommTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommTableViewController.h"/>
+        </class>
+        <class className="CommViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="showHide"/>
+                <relationship kind="action" name="transmit"/>
+                <relationship kind="outlet" name="bgImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="showHideButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="transmitButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="transmitContainerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="transmitTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="CustomBackgroundColorButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CustomBackgroundColorButton.h"/>
+        </class>
+        <class className="DarkPressedBackgroundButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DarkPressedBackgroundButton.h"/>
+        </class>
+        <class className="DeviceViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DeviceViewController.h"/>
+        </class>
+        <class className="GLViewController" superclassName="GLKViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GLViewController.h"/>
+        </class>
+        <class className="GUIButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GUIButton.h"/>
+        </class>
+        <class className="GlowingLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GlowingLabel.h"/>
+        </class>
+        <class className="IntelViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/IntelViewController.h"/>
+        </class>
+        <class className="ItemsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ItemsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="submitPasscode"/>
+                <relationship kind="outlet" name="passcodeContainerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="passcodeTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="submitPasscodeButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="LoadingViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoadingViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="activate"/>
+                <relationship kind="action" name="codenameConfirm"/>
+                <relationship kind="action" name="codenameRetry"/>
+                <relationship kind="action" name="createCodename"/>
+                <relationship kind="action" name="retryHandshake"/>
+                <relationship kind="action" name="termsCheckboxChanged"/>
+                <relationship kind="action" name="termsConfirm"/>
+                <relationship kind="outlet" name="activationButton" candidateClass="CustomBackgroundColorButton"/>
+                <relationship kind="outlet" name="activationCodeField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="activationErrorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="activationView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="codenameConfirmButton" candidateClass="StretchableBackgroundButton"/>
+                <relationship kind="outlet" name="codenameConfirmLabel" candidateClass="TypeWriterLabel"/>
+                <relationship kind="outlet" name="codenameConfirmRetryButton" candidateClass="StretchableBackgroundButton"/>
+                <relationship kind="outlet" name="codenameConfirmView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="codenameErrorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="codenameErrorRetryButton" candidateClass="StretchableBackgroundButton"/>
+                <relationship kind="outlet" name="codenameErrorView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="createCodenameButton" candidateClass="CustomBackgroundColorButton"/>
+                <relationship kind="outlet" name="createCodenameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="createCodenameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="createCodenameScrollview" candidateClass="TPKeyboardAvoidingScrollView"/>
+                <relationship kind="outlet" name="introTextView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="introView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="label" candidateClass="GlowingLabel"/>
+                <relationship kind="outlet" name="retryHandshakeButton" candidateClass="GUIButton"/>
+                <relationship kind="outlet" name="termsCheckboxButton" candidateClass="SelectingButton"/>
+                <relationship kind="outlet" name="termsConfirmButton" candidateClass="StretchableBackgroundButton"/>
+                <relationship kind="outlet" name="termsDescriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="termsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="termsView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="termsWarningLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="typewriterLabel" candidateClass="TypeWriterLabel"/>
+                <relationship kind="outlet" name="typewriterView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="wheelActivityIndicatorView" candidateClass="WheelActivityIndicatorView"/>
+            </relationships>
+        </class>
+        <class className="MediaItemsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MediaItemsViewController.h"/>
+        </class>
+        <class className="MediaWebViewViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MediaWebViewViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="action"/>
+                <relationship kind="action" name="close"/>
+                <relationship kind="outlet" name="_webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="MissionViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MissionViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="join:"/>
+                <relationship kind="outlet" name="altButton" candidateClass="StretchableBackgroundButton"/>
+                <relationship kind="outlet" name="authLabel" candidateClass="GlowingLabel"/>
+                <relationship kind="outlet" name="authProgressView" candidateClass="UIProgressView"/>
+                <relationship kind="outlet" name="backgroundImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="choosingLabel" candidateClass="GlowingLabel"/>
+                <relationship kind="outlet" name="factionChooseButtons" candidateClass="UIView"/>
+                <relationship kind="outlet" name="factionChooseButtonsLabel" candidateClass="GlowingLabel"/>
+                <relationship kind="outlet" name="jarvisBackground" candidateClass="UIView"/>
+                <relationship kind="outlet" name="joinEnlightenedButton" candidateClass="GUIButton"/>
+                <relationship kind="outlet" name="joinResistanceButton" candidateClass="GUIButton"/>
+                <relationship kind="outlet" name="mainButton" candidateClass="StretchableBackgroundButton"/>
+                <relationship kind="outlet" name="subtitleLabel" candidateClass="GlowingLabel"/>
+                <relationship kind="outlet" name="textView" candidateClass="ScrollTextView"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="GlowingLabel"/>
+                <relationship kind="outlet" name="typewriterLabel" candidateClass="TypeWriterLabel"/>
+            </relationships>
+        </class>
+        <class className="MissionsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MissionsViewController.h"/>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="OpsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OpsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="back"/>
+                <relationship kind="outlet" name="opsCloseButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="opsLabel" candidateClass="GlowingLabel"/>
+            </relationships>
+        </class>
+        <class className="PortalActionsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PortalActionsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="hack:" candidateClass="GUIButton"/>
+                <relationship kind="action" name="link:" candidateClass="GUIButton"/>
+                <relationship kind="action" name="recharge:" candidateClass="GUIButton"/>
+                <relationship kind="outlet" name="hackButton" candidateClass="GUIButton"/>
+                <relationship kind="outlet" name="imageActivityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="infoLabel1" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="infoLabel2" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="linkButton" candidateClass="GUIButton"/>
+                <relationship kind="outlet" name="portalTitleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="rechargeButton" candidateClass="GUIButton"/>
+            </relationships>
+        </class>
+        <class className="PortalDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PortalDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="back:"/>
+            </relationships>
+        </class>
+        <class className="PortalInfoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PortalInfoViewController.h"/>
+        </class>
+        <class className="PortalKeyCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PortalKeyCell.h"/>
+        </class>
+        <class className="PortalKeysViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PortalKeysViewController.h"/>
+        </class>
+        <class className="PortalUpgradeViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PortalUpgradeViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="modButtonPressed:" candidateClass="GUIButton"/>
+            </relationships>
+        </class>
+        <class className="RecruitViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecruitViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="invite"/>
+                <relationship kind="outlet" name="inviteButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="inviteContainerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="inviteLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="inviteTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="ResonatorView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ResonatorView.h"/>
+        </class>
+        <class className="ResourceCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ResourceCell.h"/>
+            <relationships>
+                <relationship kind="action" name="action:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="itemImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="itemTitleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="ResourcesViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ResourcesViewController.h"/>
+        </class>
+        <class className="ScannerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ScannerViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="openOPS"/>
+                <relationship kind="action" name="showAP"/>
+                <relationship kind="action" name="showXM"/>
+                <relationship kind="action" name="virusChoosePortalCancel"/>
+                <relationship kind="outlet" name="_mapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="apLabel" candidateClass="GlowingLabel"/>
+                <relationship kind="outlet" name="apView" candidateClass="APView"/>
+                <relationship kind="outlet" name="bgImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="levelLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nicknameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="opsButton" candidateClass="GUIButton"/>
+                <relationship kind="outlet" name="playerArrowImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="virusChoosePortalCancelButton" candidateClass="GUIButton"/>
+                <relationship kind="outlet" name="virusChoosePortalLabel" candidateClass="GlowingLabel"/>
+                <relationship kind="outlet" name="xmIndicator" candidateClass="UIProgressView"/>
+                <relationship kind="outlet" name="xmLabel" candidateClass="GlowingLabel"/>
+            </relationships>
+        </class>
+        <class className="ScoreViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ScoreViewController.h"/>
+        </class>
+        <class className="ScrollTextView" superclassName="UITextView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ScrollTextView.h"/>
+        </class>
+        <class className="SelectingButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelectingButton.h"/>
+        </class>
+        <class className="StretchableBackgroundButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/StretchableBackgroundButton.h"/>
+        </class>
+        <class className="TPKeyboardAvoidingScrollView" superclassName="UIScrollView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TPKeyboardAvoidingScrollView.h"/>
+        </class>
+        <class className="TypeWriterLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TypeWriterLabel.h"/>
+        </class>
+        <class className="WheelActivityIndicatorView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WheelActivityIndicatorView.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

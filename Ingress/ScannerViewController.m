@@ -31,7 +31,6 @@
     NSLayoutConstraint *rangeCircleViewWidth;
     NSLayoutConstraint *rangeCircleViewHeight;
     
-	CLLocationManager *locationManager;
 	CLLocation *lastLocation;
 	BOOL firstRefreshProfile;
 	BOOL firstLocationUpdate;
@@ -43,6 +42,9 @@
 	NSTimer *refreshTimer;
 
 	NSMutableSet *mapGuids;
+    
+    UIImage *imageData;
+	NSString *imageLocation;
 
 }
 
@@ -87,27 +89,33 @@
     [self validateLocationServicesAuthorization];
 
 	CGFloat offset = 32;
-	if ([Utilities isOS7]) { offset += 20; }
+    #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+	if ([Utilities isOS7]) {
+        offset += 20;
+    }
+    #endif
 	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
 	CommViewController *commVC = [storyboard instantiateViewControllerWithIdentifier:@"CommViewController"];
-	commVC.view.frame = CGRectMake(0, self.view.frame.size.height-offset, 320, 393);
+	commVC.view.frame = CGRectMake(0, self.view.frame.size.height-offset, self.view.frame.size.width, 393);
 	[self.view addSubview:commVC.view];
 	[self addChildViewController:commVC];
 	
-	locationManager = [SharedLocationManager locationManager];
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
-	if ([locationManager respondsToSelector:@selector(activityType)]) {
-		locationManager.activityType = CLActivityTypeFitness;
-	}
-	
-	[locationManager startUpdatingLocation];
-	[locationManager startUpdatingHeading];
+//	locationManager = [LocationManager locationManager];
+//    locationManager.delegate = self;
+//    locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+//	if ([locationManager respondsToSelector:@selector(activityType)]) {
+//		locationManager.activityType = CLActivityTypeFitness;
+//	}
+//	
+//	[locationManager startUpdatingLocation];
+//	[locationManager startUpdatingHeading];
+    
+    [[LocationManager sharedInstance] addDelegate:self];
 
 	UIPinchGestureRecognizer *recognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
 	[_mapView addGestureRecognizer:recognizer];
 
-#ifdef DEBUG
+#if DEBUG
 #warning Manual scrolling for debug purposes only!
 	UITapGestureRecognizer *mapViewTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTapped:)];
 	mapViewTapGestureRecognizer.numberOfTapsRequired = 2;
@@ -155,21 +163,19 @@
             case 1:
                 [self fireXMP];
                 break;
-            case 2:
+            case 2: {
                 
-                if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-                    UIImagePickerController *cameraVC = [UIImagePickerController new];
-                    cameraVC.sourceType = UIImagePickerControllerSourceTypeCamera;
-//                    cameraVC.delegate = self;
-                    [self presentViewController:cameraVC animated:YES completion:nil];
-                }
+                UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Existing", nil];
+				actionSheet.tag = 3;
+				[actionSheet showInView:self.view.window];
                 
                 break;
+            }
             case 4: {
                 
                 NSMutableArray *itemsToCollect = [NSMutableArray array];
                 for (Item *droppedItem in [Item MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"dropped = YES"]]) {
-                    if ([droppedItem distanceFromCoordinate:_mapView.centerCoordinate] <= 40) {
+                    if ([droppedItem distanceFromCoordinate:_mapView.centerCoordinate] <= SCANNER_RANGE) {
                         [itemsToCollect addObject:droppedItem];
                     }
                 }
@@ -177,6 +183,7 @@
                 if (itemsToCollect.count > 0) {
                     
                     __block MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:[AppDelegate instance].window];
+                    HUD.removeFromSuperViewOnHide = YES;
                     HUD.userInteractionEnabled = YES;
                     HUD.mode = MBProgressHUDModeIndeterminate;
                     HUD.dimBackground = YES;
@@ -710,7 +717,9 @@
     [self validateLocationServicesAuthorization];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+//- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    CLLocation *newLocation = [locations lastObject];
 	[_mapView setCenterCoordinate:newLocation.coordinate animated:!firstLocationUpdate];
 	if (firstLocationUpdate) firstLocationUpdate = NO;
 }
@@ -817,7 +826,22 @@
 			}
 		}];
 		
-	}
+	} else if (actionSheet.tag == 3) {
+    
+        if (buttonIndex != actionSheet.cancelButtonIndex) {
+            UIImagePickerController *imagePickerVC = [UIImagePickerController new];
+            
+            if (buttonIndex == 0) {
+                imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+            } else if (buttonIndex == 1) {
+                imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            }
+            
+            imagePickerVC.delegate = self;
+            [self presentViewController:imagePickerVC animated:YES completion:nil];
+        }
+        
+    }
 
 }
 
@@ -826,10 +850,9 @@
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
 
 	if (mapView.zoomLevel < 15) {
-		if ([Utilities isOS7]) {
-			#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
-                [mapView setCenterCoordinate:mapView.centerCoordinate zoomLevel:15 animated:NO];
-
+//		if ([Utilities isOS7]) {
+//            [mapView setCenterCoordinate:mapView.centerCoordinate zoomLevel:15 animated:NO];
+//#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
 //				MKMapCamera *camera = [MKMapCamera camera];
 //				camera.centerCoordinate = mapView.centerCoordinate;
 //				camera.heading = 0;
@@ -837,10 +860,10 @@
 //				camera.altitude = 50;
 //				NSLog(@"camera: %@", camera);
 //				[mapView setCamera:camera animated:NO];
-			#endif
-		} else {
+//#endif
+//		} else {
 			[mapView setCenterCoordinate:mapView.centerCoordinate zoomLevel:15 animated:NO];
-		}
+//		}
 		return;
     }
 
@@ -853,7 +876,7 @@
 	if (energy < maxEnergy) {
 		[[[API sharedInstance] energyToCollect] removeAllObjects];
 		for (EnergyGlob *xm in [EnergyGlob MR_findAll]) {
-			if ([xm distanceFromCoordinate:_mapView.centerCoordinate] <= 40) {
+			if ([xm distanceFromCoordinate:_mapView.centerCoordinate] <= SCANNER_RANGE) {
 				[[[API sharedInstance] energyToCollect] addObject:xm];
 				collecting += xm.amount;
 			}
@@ -883,7 +906,7 @@
 	if ([view.annotation isKindOfClass:[Portal class]]) {
 		currentPortal = (Portal *)view.annotation;
 		if (self.virusToUse) {
-			if ([currentPortal distanceFromCoordinate:_mapView.centerCoordinate] <= 40) {
+			if ([currentPortal distanceFromCoordinate:_mapView.centerCoordinate] <= SCANNER_RANGE) {
 				if ([[NSUserDefaults standardUserDefaults] boolForKey:DeviceSoundToggleEffects]) {
 					[[SoundManager sharedManager] playSound:@"Sound/sfx_ui_success.aif"];
 				}
@@ -896,7 +919,7 @@
 			[self performSegueWithIdentifier:@"PortalDetailSegue" sender:self];
 		}
 	} else if ([view.annotation isKindOfClass:[Item class]]) {
-		if ([(Item *)(view.annotation) distanceFromCoordinate:_mapView.centerCoordinate] <= 40) {
+		if ([(Item *)(view.annotation) distanceFromCoordinate:_mapView.centerCoordinate] <= SCANNER_RANGE) {
             if ([[NSUserDefaults standardUserDefaults] boolForKey:DeviceSoundToggleEffects]) {
                 [[SoundManager sharedManager] playSound:@"Sound/sfx_ui_success.aif"];
             }
@@ -1016,10 +1039,10 @@
 - (void)mapTapped:(UITapGestureRecognizer *)recognizer {
 
 	if (_mapView.scrollEnabled) {
-		[locationManager startUpdatingLocation];
+        [[LocationManager sharedInstance] addDelegate:self];
 		[_mapView setScrollEnabled:NO];
 	} else {
-		[locationManager stopUpdatingLocation];
+        [[LocationManager sharedInstance] removeDelegate:self];
 		[_mapView setScrollEnabled:YES];
 	}
 
@@ -1089,6 +1112,7 @@
 //	[self fireXMPOfLevel:level];
     
 	MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:[AppDelegate instance].window];
+    HUD.removeFromSuperViewOnHide = YES;
 	HUD.userInteractionEnabled = YES;
 	HUD.mode = MBProgressHUDModeCustomView;
 	HUD.dimBackground = YES;
@@ -1114,6 +1138,7 @@
 	
 	if (!xmpItem) {
 		MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:[AppDelegate instance].window];
+        HUD.removeFromSuperViewOnHide = YES;
 		HUD.userInteractionEnabled = YES;
 		HUD.dimBackground = YES;
 		HUD.labelFont = [UIFont fontWithName:[[[UILabel appearance] font] fontName] size:16];
@@ -1248,6 +1273,43 @@
 
 - (void)didDismissOpsViewController:(OpsViewController *)opsViewController {
 //	_opsViewController = nil;
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
+	imageData = nil;
+	imageLocation = nil;
+    
+	NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+	if ([mediaType isEqualToString:(NSString*)kUTTypeImage]) {
+		NSURL *url = [info objectForKey:UIImagePickerControllerReferenceURL];
+		if (url) {
+			[[ALAssetsLibrary new] assetForURL:url resultBlock:^(ALAsset *asset) {
+				CLLocation *location = [asset valueForProperty:ALAssetPropertyLocation];
+				if (location) {
+					imageLocation = [NSString stringWithFormat:@"lat=%g\nlng=%g\n", location.coordinate.latitude, location.coordinate.longitude];
+					imageData = info[UIImagePickerControllerOriginalImage];
+					NSLog(@"imageData: %@", imageData);
+				}
+			} failureBlock:nil];
+		}
+	}
+    
+	[picker dismissViewControllerAnimated:YES completion:^{
+		if (imageData) {
+			NSLog(@"imageData: %@", imageData);
+			UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Enter title for portal" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+			alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+			[alertView textFieldAtIndex:0].placeholder = @"Enter portal title";
+			[alertView show];
+		} else {
+			UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error getting photo" message:nil delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+			[alertView show];
+		}
+	}];
+    
 }
 
 #pragma mark - Storyboard
