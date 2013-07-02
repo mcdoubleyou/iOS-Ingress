@@ -189,7 +189,7 @@
                 
                 if (itemsToCollect.count > 0) {
                     
-                    __block MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:[AppDelegate instance].window];
+                    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:[AppDelegate instance].window];
                     HUD.removeFromSuperViewOnHide = YES;
                     HUD.userInteractionEnabled = YES;
                     HUD.mode = MBProgressHUDModeIndeterminate;
@@ -768,7 +768,8 @@
 		
 		__block Item *item = currentItem;
 
-		__block MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:[AppDelegate instance].window];
+		MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:[AppDelegate instance].window];
+		HUD.removeFromSuperViewOnHide = YES;
 		HUD.userInteractionEnabled = YES;
 		HUD.mode = MBProgressHUDModeIndeterminate;
 		HUD.dimBackground = YES;
@@ -807,7 +808,8 @@
 		virusChoosePortalLabel.hidden = YES;
 		virusChoosePortalCancelButton.hidden = YES;
 
-		__block MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:[AppDelegate instance].window];
+		MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:[AppDelegate instance].window];
+		HUD.removeFromSuperViewOnHide = YES;
 		HUD.userInteractionEnabled = YES;
 		HUD.mode = MBProgressHUDModeIndeterminate;
 		HUD.dimBackground = YES;
@@ -1154,18 +1156,7 @@
 //	NSLog(@"Firing: %@", xmpItem);
 	
 	if (!xmpItem) {
-		MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:[AppDelegate instance].window];
-        HUD.removeFromSuperViewOnHide = YES;
-		HUD.userInteractionEnabled = YES;
-		HUD.dimBackground = YES;
-		HUD.labelFont = [UIFont fontWithName:[[[UILabel appearance] font] fontName] size:16];
-		HUD.mode = MBProgressHUDModeCustomView;
-		HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"warning.png"]];
-		HUD.detailsLabelFont = [UIFont fontWithName:[[[UILabel appearance] font] fontName] size:16];
-		HUD.detailsLabelText = @"No XMP remaining!";
-		[[AppDelegate instance].window addSubview:HUD];
-		[HUD show:YES];
-		[HUD hide:YES afterDelay:HUD_DELAY_TIME];
+		[Utilities showWarningWithTitle:@"No XMP remaining!"];
 		return;
 	} else {
         if ([[NSUserDefaults standardUserDefaults] boolForKey:DeviceSoundToggleEffects]) {
@@ -1176,6 +1167,7 @@
 	[[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Game Action" withAction:@"Fire XMP" withLabel:nil withValue:@(xmpItem.level)];
 	
 	MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:[AppDelegate instance].window];
+	HUD.removeFromSuperViewOnHide = YES;
 	HUD.userInteractionEnabled = YES;
 	HUD.dimBackground = YES;
 	HUD.labelFont = [UIFont fontWithName:[[[UILabel appearance] font] fontName] size:16];
@@ -1187,16 +1179,7 @@
 		
 		[HUD hide:YES];
 		
-		MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:[AppDelegate instance].window];
-		HUD.userInteractionEnabled = YES;
-		HUD.dimBackground = YES;
-		HUD.labelFont = [UIFont fontWithName:[[[UILabel appearance] font] fontName] size:16];
-		
 		if (damages) {
-			
-//			HUD.mode = MBProgressHUDModeText;
-//			HUD.labelText = @"Damages";
-//			HUD.detailsLabelFont = [UIFont fontWithName:[[[UILabel appearance] font] fontName] size:10];
 			
 			UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 240, 320)];
 			textView.editable = NO;
@@ -1204,6 +1187,11 @@
 			textView.opaque = NO;
 			textView.textColor = [UIColor whiteColor];
 			
+			MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:[AppDelegate instance].window];
+			HUD.removeFromSuperViewOnHide = YES;
+			HUD.userInteractionEnabled = YES;
+			HUD.dimBackground = YES;
+			HUD.labelFont = [UIFont fontWithName:[[[UILabel appearance] font] fontName] size:16];
 			HUD.mode = MBProgressHUDModeCustomView;
 			HUD.customView = textView;
 			HUD.showCloseButton = YES;
@@ -1252,20 +1240,12 @@
 			//[HUD show:YES];
 
 		} else {
-			
-			HUD.mode = MBProgressHUDModeCustomView;
-			HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"warning.png"]];
-			HUD.detailsLabelFont = [UIFont fontWithName:[[[UILabel appearance] font] fontName] size:16];
-			
+
 			if (errorStr) {
-				HUD.detailsLabelText = errorStr;
+				[Utilities showWarningWithTitle:errorStr];
 			} else {
-				HUD.detailsLabelText = @"Unknown Error";
+				[Utilities showWarningWithTitle:@"Unknown Error"];
 			}
-			
-			[[AppDelegate instance].window addSubview:HUD];
-			[HUD show:YES];
-			[HUD hide:YES afterDelay:HUD_DELAY_TIME];
 			
 		}
 

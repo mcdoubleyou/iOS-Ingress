@@ -17,11 +17,9 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 70000
+
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 32, 0);
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
-#endif
 
 }
 
@@ -168,7 +166,8 @@
     }
 	if (actionSheet.tag == 1 && buttonIndex == 0) {
 
-		__block MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:[AppDelegate instance].window];
+		MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:[AppDelegate instance].window];
+		HUD.removeFromSuperViewOnHide = YES;
 		HUD.userInteractionEnabled = YES;
 		HUD.mode = MBProgressHUDModeIndeterminate;
 		HUD.dimBackground = YES;
@@ -188,7 +187,8 @@
 
 	} else if (actionSheet.tag == 1 && buttonIndex == 1) {
 
-		__block MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:[AppDelegate instance].window];
+		MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:[AppDelegate instance].window];
+		HUD.removeFromSuperViewOnHide = YES;
 		HUD.userInteractionEnabled = YES;
 		HUD.mode = MBProgressHUDModeIndeterminate;
 		HUD.dimBackground = YES;

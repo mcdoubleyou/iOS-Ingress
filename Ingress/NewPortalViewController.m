@@ -65,7 +65,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
 	[super viewDidDisappear:animated];
 	
-	[self.view removeKeyboardControl];
+//	[self.view removeKeyboardControl];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -115,6 +115,8 @@
 }
 
 - (IBAction)send {
+	
+	if (sendButton.disabled) { return; }
 
 	unsigned long long min = 1000000000000000000U;
 	unsigned long long max = 9999999999999999999U;
@@ -139,6 +141,7 @@
 	};
 	
 	MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view.window];
+	HUD.removeFromSuperViewOnHide = YES;
 	HUD.userInteractionEnabled = YES;
 	HUD.dimBackground = YES;
 	HUD.mode = MBProgressHUDModeIndeterminate;
@@ -179,12 +182,21 @@
 
 #pragma mark - UITextFieldDelegate
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+	if ([textField isEqual:portalNameTextField]) {
+		int textLength = portalNameTextField.text.length - range.length + string.length;
+		sendButton.enabled = textLength > 0;
+	}
+	return YES;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	if ([textField isEqual:portalNameTextField]) {
 		[portalDescriptionTextField becomeFirstResponder];
 	} else if ([textField isEqual:portalDescriptionTextField]) {
 		[portalDescriptionTextField resignFirstResponder];
 	}
+	return NO;
 }
 
 @end

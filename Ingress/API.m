@@ -22,6 +22,8 @@ NSString *const MilesOrKM = @"MilesOrKM";
 	NSString *playerGuid;
 	
 	NSTimer *inventoryRefreshTimer;
+	
+	BOOL inventoryAutorefreshInProgress;
 }
 
 @synthesize networkQueue = _networkQueue;
@@ -64,7 +66,12 @@ NSString *const MilesOrKM = @"MilesOrKM";
 #pragma mark - Auto refresh
 
 - (void)autorefreshInventory {
-	[[API sharedInstance] getInventoryWithCompletionHandler:NULL];
+	if (!inventoryAutorefreshInProgress) {
+		inventoryAutorefreshInProgress = YES;
+		[[API sharedInstance] getInventoryWithCompletionHandler:^{
+			inventoryAutorefreshInProgress = NO;
+		}];
+	}
 }
 
 #pragma mark - Sound
@@ -486,7 +493,8 @@ NSString *const MilesOrKM = @"MilesOrKM";
 
 	Player *player = [self playerForContext:[NSManagedObjectContext MR_contextForCurrentThread]];
 	long long lastInventoryUpdated = [[NSDate dateWithTimeIntervalSinceReferenceDate:player.lastInventoryUpdated] timeIntervalSince1970]*1000.;
-
+//	NSLog(@"lastInventoryUpdated: %@", [NSDate dateWithTimeIntervalSinceReferenceDate:player.lastInventoryUpdated]);
+	
 	NSDictionary *params = @{
 		@"lastQueryTimestamp": @(lastInventoryUpdated)
 	};
@@ -496,6 +504,7 @@ NSString *const MilesOrKM = @"MilesOrKM";
 
 		Player *player = [self playerForContext:[NSManagedObjectContext MR_contextForCurrentThread]];
 		player.lastInventoryUpdated = [[NSDate dateWithTimeIntervalSince1970:([responseObj[@"result"] doubleValue]/1000.)] timeIntervalSinceReferenceDate];
+//		NSLog(@"NEW lastInventoryUpdated: %@", [NSDate dateWithTimeIntervalSince1970:([responseObj[@"result"] doubleValue]/1000.)]);
 
 		if (handler) {
 			dispatch_async(dispatch_get_main_queue(), ^{
@@ -872,6 +881,11 @@ NSString *const MilesOrKM = @"MilesOrKM";
 }
 
 - (void)hackPortal:(Portal *)portal completionHandler:(void (^)(NSString *errorStr, NSArray *acquiredItems, int secondsRemaining))handler {
+	
+	if (!portal || !portal.guid) {
+		handler(@"Application error", nil, 0);
+		return;
+	}
 	
 	NSDictionary *dict = @{
 		@"itemGuid": portal.guid
@@ -1273,9 +1287,9 @@ NSString *const MilesOrKM = @"MilesOrKM";
 
 - (void)getModifiedEntity:(Portal *)item completionHandler:(void (^)(void))handler {
 
-	NSString *timestampString = [NSString stringWithFormat:@"%.3f", [[NSDate dateWithTimeIntervalSinceReferenceDate:item.timestamp] timeIntervalSince1970]];
-	timestampString = [timestampString stringByReplacingOccurrencesOfString:@"." withString:@""];
-	long long timestamp = [timestampString longLongValue];
+//	NSString *timestampString = [NSString stringWithFormat:@"%.3f", [[NSDate dateWithTimeIntervalSinceReferenceDate:item.timestamp] timeIntervalSince1970]];
+//	timestampString = [timestampString stringByReplacingOccurrencesOfString:@"." withString:@""];
+	long long timestamp = 0; //[timestampString longLongValue];
 
 	NSDictionary *dict = @{
 		@"guids": @[item.guid],
@@ -1384,6 +1398,9 @@ NSString *const MilesOrKM = @"MilesOrKM";
 	[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue new] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
 		
 		if (error) { NSLog(@"NSURLConnection error: %@", error); }
+		
+		//NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+		//NSLog(@"uploadPortalImage => %d -- %@ -- %@", httpResponse.statusCode, httpResponse.allHeaderFields, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 		
 		if (handler) {
 			handler();
@@ -1756,7 +1773,7 @@ NSString *const MilesOrKM = @"MilesOrKM";
 
 				NSDictionary *resonatorDict = gameEntity[2][@"resonatorArray"][@"resonators"][i];
 
-				DeployedResonator *resonator = [DeployedResonator MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"portal = %@ && slot = %d", portal, i] inContext:context];
+				DeployedResonator *resonator = [DeployedResonator MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"portal.guid = %@ && slot = %d", portal.guid, i] inContext:context];
 
 				if ([resonatorDict isKindOfClass:[NSNull class]]) {
 					if (resonator) {
