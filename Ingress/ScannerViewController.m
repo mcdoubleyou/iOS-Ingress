@@ -95,16 +95,12 @@
 
     [self validateLocationServicesAuthorization];
 
-	CGFloat offset = 32;
-    #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
-	if ([Utilities isOS7]) {
-        offset += 20;
-    }
-    #endif
 	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
 	commVC = [storyboard instantiateViewControllerWithIdentifier:@"CommViewController"];
-	commVC.view.frame = CGRectMake(0, self.view.frame.size.height-offset, self.view.frame.size.width, 393);
 	[self.view addSubview:commVC.view];
+	
+	[self updateCommViewControllerFrame];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusBarFrameDidChange:) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
 	[self addChildViewController:commVC];
 	
 	playerArrowImage = [UIImageView new];
@@ -1274,6 +1270,27 @@
 - (void)didDismissOpsViewController:(OpsViewController *)opsViewController {
 //	_opsViewController = nil;
 }
+
+#pragma mark - CommViewController Positioning
+
+- (void)updateCommViewControllerFrame {
+	static CGFloat offset = 32;
+
+	#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+	if ([Utilities isOS7]) {
+		offset += 20;
+	}
+	#endif
+
+	if( commVC.view.frame.origin.y == 0 || commVC.view.frame.origin.y >= self.view.frame.size.height-(offset+20) ) {
+		commVC.view.frame = CGRectMake(0, self.view.frame.size.height-offset, self.view.frame.size.width, 393);
+	}
+}
+
+- (void)statusBarFrameDidChange:(NSNotification *)note {
+	[self updateCommViewControllerFrame];
+}
+
 
 #pragma mark - UIImagePickerControllerDelegate
 
