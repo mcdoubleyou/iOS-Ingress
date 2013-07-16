@@ -9,7 +9,6 @@
 #import "ScannerViewController.h"
 #import "PortalDetailViewController.h"
 #import "MissionViewController.h"
-#import "CommViewController.h"
 #import "MKMapView+ZoomLevel.h"
 #import "NewPortalViewController.h"
 
@@ -34,9 +33,8 @@
 	Portal *currentPortal;
 	Item *currentItem;
 
-	UIView *rangeCircleView;
-    NSLayoutConstraint *rangeCircleViewWidth;
-    NSLayoutConstraint *rangeCircleViewHeight;
+	UIImageView *rangeCircleImageView;
+	UIImageView *playerArrowImage;
     
 	CLLocation *lastLocation;
 	BOOL firstRefreshProfile;
@@ -52,6 +50,8 @@
     
     UIImage *selectedPortalImage;
 	CLLocation *selectedPortalLocation;
+	
+	NearbyPortalView *nearbyPortalView;
 	
 }
 
@@ -102,10 +102,15 @@
     }
     #endif
 	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
-	CommViewController *commVC = [storyboard instantiateViewControllerWithIdentifier:@"CommViewController"];
+	commVC = [storyboard instantiateViewControllerWithIdentifier:@"CommViewController"];
 	commVC.view.frame = CGRectMake(0, self.view.frame.size.height-offset, self.view.frame.size.width, 393);
 	[self.view addSubview:commVC.view];
 	[self addChildViewController:commVC];
+	
+	playerArrowImage = [UIImageView new];
+	playerArrowImage.frame = CGRectMake(0, 0, 50, 50);
+	playerArrowImage.center = _mapView.center;
+	[self.view insertSubview:playerArrowImage belowSubview:commVC.view];
 	
 //	locationManager = [LocationManager locationManager];
 //    locationManager.delegate = self;
@@ -294,7 +299,7 @@
 	if (player.allowFactionChoice) {
 		[self performSegueWithIdentifier:@"FactionChooseSegue" sender:self];
 	}
-	
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -371,18 +376,48 @@
 					});
 				}
 			}
+			
+			// ---------------------------------------------------
 
+			__block int addedPortals = 0;
 			NSArray *fetchedPortals = [Portal MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"completeInfo = YES"] inContext:context];
 			for (Portal *portal in fetchedPortals) {
 				//NSLog(@"adding portal to map: %@ (%f, %f)", portal.subtitle, portal.latitude, portal.longitude);
 				if (portal.coordinate.latitude == 0 && portal.coordinate.longitude == 0) { continue; }
 				if (MKMapRectContainsPoint(_mapView.visibleMapRect, MKMapPointForCoordinate(portal.coordinate))) {
+					addedPortals++;
 					dispatch_async(dispatch_get_main_queue(), ^{
 						[_mapView addAnnotation:portal];
 						[_mapView addOverlay:portal];
 					});
 				}
 			}
+			
+			if (addedPortals == 0) {
+				[[API sharedInstance] findNearbyPortalsWithCompletionHandler:^(NSArray *portals) {
+					if ([nearbyPortalView.portalGUID isEqualToString:portals[0][@"guid"]]) {
+						[nearbyPortalView updateInformation];
+					} else {
+						if( nearbyPortalView ) {
+							[nearbyPortalView removeFromSuperview];
+							nearbyPortalView = nil;
+						}
+					
+						nearbyPortalView = [[NearbyPortalView alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height-140, 280, 80) portal:portals[0]];
+						nearbyPortalView.alpha = 0;
+						[self.view insertSubview:nearbyPortalView belowSubview:commVC.view];
+		
+						[UIView animateWithDuration:0.15 animations:^{
+							nearbyPortalView.alpha = 1;
+						}];
+					}
+				}];
+			} else if( nearbyPortalView ) {
+				[nearbyPortalView removeFromSuperview];
+				nearbyPortalView = nil;
+			}
+			
+			// ---------------------------------------------------
 
 			NSArray *fetchedResonators = [DeployedResonator MR_findAllInContext:context];
 			for (DeployedResonator *resonator in fetchedResonators) {
@@ -663,80 +698,43 @@
 - (void)updateRangeCircleView {
     
     // Create view on first update
-    if ( ! rangeCircleView) {
-        rangeCircleView = [UIView new];
-        rangeCircleView.backgroundColor = [UIColor clearColor];
-        rangeCircleView.opaque = NO;
-        rangeCircleView.userInteractionEnabled = NO;
-        rangeCircleView.layer.masksToBounds = YES;
-        rangeCircleView.layer.borderWidth = IG_RANGE_CIRCLE_VIEW_BORDER_WIDTH;
-        rangeCircleView.layer.borderColor = [[[UIColor blueColor] colorWithAlphaComponent:0.25] CGColor];
-        
-        rangeCircleView.translatesAutoresizingMaskIntoConstraints = NO;
-        
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_mapView
-                                                              attribute:NSLayoutAttributeCenterX
-                                  
-                                                              relatedBy:NSLayoutRelationEqual
-                                  
-                                                                 toItem:rangeCircleView
-                                                              attribute:NSLayoutAttributeCenterX
-                                  
-                                                             multiplier:1
-                                                               constant:0]];
-        
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_mapView
-                                                              attribute:NSLayoutAttributeCenterY
-                                  
-                                                              relatedBy:NSLayoutRelationEqual
-                                  
-                                                                 toItem:rangeCircleView
-                                                              attribute:NSLayoutAttributeCenterY
-                                  
-                                                             multiplier:1
-                                                               constant:-10]];
-        
-        rangeCircleViewWidth = [NSLayoutConstraint constraintWithItem:rangeCircleView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:0 multiplier:0 constant:0];
-        rangeCircleViewHeight = [NSLayoutConstraint constraintWithItem:rangeCircleView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:0 multiplier:0 constant:0];
-        [self.view addConstraint:rangeCircleViewWidth];
-        [self.view addConstraint:rangeCircleViewHeight];
-        
-        [self.view addSubview:rangeCircleView];
+    if (!rangeCircleImageView) {
+		rangeCircleImageView = [UIImageView new];
+        rangeCircleImageView.image = [UIImage imageNamed:@"compass_ring.png"];
+        rangeCircleImageView.opaque = NO;
+        rangeCircleImageView.userInteractionEnabled = NO;
+        rangeCircleImageView.clipsToBounds = YES;
+        [self.view addSubview:rangeCircleImageView];
     }
     
     // Hide view while no sensible data can be shown
     if (locationAllowHUD) {
-        rangeCircleView.hidden = YES;
-        
+        rangeCircleImageView.hidden = YES;
         return;
     }
-    
-    // Update range diameter
-    CGFloat diameter = 0.;
-    if (_mapView.bounds.size.width > 0 && _mapView.region.span.latitudeDelta > 0) {
-        diameter = 100./((_mapView.region.span.latitudeDelta * 111200.) / _mapView.bounds.size.width);
-    }
-    rangeCircleViewWidth.constant = diameter + IG_RANGE_CIRCLE_VIEW_BORDER_WIDTH * 2;
-    rangeCircleViewHeight.constant = diameter + IG_RANGE_CIRCLE_VIEW_BORDER_WIDTH * 2;
-    rangeCircleView.layer.cornerRadius = rangeCircleView.layer.cornerRadius = (diameter + IG_RANGE_CIRCLE_VIEW_BORDER_WIDTH * 2.)/2.;
+
+	if (_mapView.bounds.size.width > 0 && _mapView.region.span.latitudeDelta > 0) {
+		MKMapRect mRect = _mapView.visibleMapRect;
+		MKMapPoint eastMapPoint = MKMapPointMake(MKMapRectGetMinX(mRect), MKMapRectGetMidY(mRect));
+		MKMapPoint westMapPoint = MKMapPointMake(MKMapRectGetMaxX(mRect), MKMapRectGetMidY(mRect));
+		CLLocationDistance altDistance = MKMetersBetweenMapPoints(eastMapPoint, westMapPoint);
+		CGFloat width = ((_mapView.frame.size.width * SCANNER_RANGE) / altDistance)*2;
+		rangeCircleImageView.frame = CGRectMake(0, 0, width, width);
+		rangeCircleImageView.center = _mapView.center;
+	}
+
 }
 
 #pragma mark - CLLocationManagerDelegate
 
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
-{
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     [self validateLocationServicesAuthorization];
 }
 
-//- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *newLocation = [locations lastObject];
 	[_mapView setCenterCoordinate:newLocation.coordinate animated:!firstLocationUpdate];
 	if (firstLocationUpdate) firstLocationUpdate = NO;
-}
-
-- (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager {
-	return NO;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading {
@@ -753,10 +751,11 @@
     
     #define INGRESS_SCANNER_BEARING_ANIMATION_DURATION 0.2
     
-    if ( ! playerArrowImage.layer.animationKeys.count) {
+    if (!playerArrowImage.layer.animationKeys.count) {
         [UIView animateWithDuration:INGRESS_SCANNER_BEARING_ANIMATION_DURATION delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             CGAffineTransform transform = CGAffineTransformMakeRotation(GLKMathDegreesToRadians(newHeading.trueHeading));
             playerArrowImage.transform = transform;
+			playerArrowImage.center = _mapView.center;
         } completion:nil];
     }
 }
@@ -873,7 +872,7 @@
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
 
 	if (mapView.zoomLevel < 15) {
-//		if ([Utilities isOS7]) {
+		if ([Utilities isOS7]) {
 //            [mapView setCenterCoordinate:mapView.centerCoordinate zoomLevel:15 animated:NO];
 //#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
 //				MKMapCamera *camera = [MKMapCamera camera];
@@ -884,9 +883,9 @@
 //				NSLog(@"camera: %@", camera);
 //				[mapView setCamera:camera animated:NO];
 //#endif
-//		} else {
+		} else {
 			[mapView setCenterCoordinate:mapView.centerCoordinate zoomLevel:15 animated:NO];
-//		}
+		}
 		return;
     }
 
@@ -1053,7 +1052,7 @@
     MKCoordinateSpan span = MKCoordinateSpanMake(latdelta, londelta);
 	MKCoordinateRegion region = MKCoordinateRegionMake(originalRegion.center, span);
 
-	if ([self zoomLevelForRegion:region] >= 15) {
+	if ([Utilities isOS7] || [self zoomLevelForRegion:region] >= 15) {
 		[_mapView setRegion:region animated:NO];
 	}
     

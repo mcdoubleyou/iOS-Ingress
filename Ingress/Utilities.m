@@ -20,6 +20,18 @@
 	return ([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending);
 }
 
++ (CGFloat)statusBarHeight {
+	return [UIApplication sharedApplication].statusBarFrame.size.height;
+}
+
+#pragma mark - Random
+
++ (double)randomWithMin:(double)min max:(double)max {
+	int range = (max - min);
+	int rand = (arc4random() % (range + 1));
+	return rand + min;
+}
+
 #pragma mark - Warning
 
 + (void)showWarningWithTitle:(NSString *)title {
@@ -34,6 +46,22 @@
 	[[AppDelegate instance].window addSubview:HUD];
 	[HUD show:YES];
 	[HUD hide:YES afterDelay:HUD_DELAY_TIME];
+}
+
+#pragma mark - Location
+
++ (CLLocationDirection)angleFromCoordinate:(CLLocationCoordinate2D)first toCoordinate:(CLLocationCoordinate2D)second {
+	
+    float deltaLongitude = second.longitude - first.longitude;
+    float deltaLatitude = second.latitude - first.latitude;
+    float angle = (M_PI * .5f) - atan(deltaLatitude / deltaLongitude);
+	
+	if (deltaLongitude > 0)			angle = angle;
+	else if (deltaLongitude < 0)	angle = angle + M_PI;
+    else if (deltaLatitude < 0)		angle = M_PI;
+	else							angle = 0;
+		
+	return GLKMathRadiansToDegrees(angle);
 }
 
 #pragma mark - NSAttributedString attributes

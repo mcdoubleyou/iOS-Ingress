@@ -109,6 +109,7 @@
 		FA600FE3175E90C500F360A6 /* shield_rare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA600FDC175E90C500F360A6 /* shield_rare@2x.png */; };
 		FA600FE4175E90C500F360A6 /* shield_verycommon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA600FDD175E90C500F360A6 /* shield_verycommon@2x.png */; };
 		FA600FE5175E90C500F360A6 /* shield_veryrare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA600FDE175E90C500F360A6 /* shield_veryrare@2x.png */; };
+		FA6C96C4178B217E0082C7EC /* compass_ring@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA6C96C3178B217E0082C7EC /* compass_ring@2x.png */; };
 		FA6EF951172D11790004905F /* GlowingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6EF950172D11790004905F /* GlowingLabel.m */; };
 		FA6EF957172D1C490004905F /* trackImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA6EF956172D1C490004905F /* trackImage@2x.png */; };
 		FA6EF960172D2D360004905F /* progressImage-aliens@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA6EF95E172D2D350004905F /* progressImage-aliens@2x.png */; };
@@ -142,6 +143,7 @@
 		FA941E791772FBCA0064C810 /* ops_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA941E761772FBCA0064C810 /* ops_background@2x.png */; };
 		FA941E7A1772FBCA0064C810 /* ops_close_button_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA941E771772FBCA0064C810 /* ops_close_button_default@2x.png */; };
 		FA941E7B1772FBCA0064C810 /* ops_close_button_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA941E781772FBCA0064C810 /* ops_close_button_pressed@2x.png */; };
+		FA9AD44B17843EB400EF7AF5 /* NearbyPortalView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9AD44A17843EB400EF7AF5 /* NearbyPortalView.m */; };
 		FA9D4BE017705C1C00A7F889 /* commBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA9D4BDF17705C1C00A7F889 /* commBg@2x.png */; };
 		FAA0C30116B992EF00DB57E8 /* resonatorTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA0C30016B992EF00DB57E8 /* resonatorTexture.png */; };
 		FAA0C30516B993B800DB57E8 /* default_btn_disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA0C30216B993B800DB57E8 /* default_btn_disabled@2x.png */; };
@@ -451,6 +453,7 @@
 		FA600FDC175E90C500F360A6 /* shield_rare@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shield_rare@2x.png"; sourceTree = "<group>"; };
 		FA600FDD175E90C500F360A6 /* shield_verycommon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shield_verycommon@2x.png"; sourceTree = "<group>"; };
 		FA600FDE175E90C500F360A6 /* shield_veryrare@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shield_veryrare@2x.png"; sourceTree = "<group>"; };
+		FA6C96C3178B217E0082C7EC /* compass_ring@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compass_ring@2x.png"; sourceTree = "<group>"; };
 		FA6EF94F172D11790004905F /* GlowingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GlowingLabel.h; path = GlowingLabel/GlowingLabel.h; sourceTree = "<group>"; };
 		FA6EF950172D11790004905F /* GlowingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GlowingLabel.m; path = GlowingLabel/GlowingLabel.m; sourceTree = "<group>"; };
 		FA6EF956172D1C490004905F /* trackImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trackImage@2x.png"; sourceTree = "<group>"; };
@@ -496,6 +499,8 @@
 		FA941E761772FBCA0064C810 /* ops_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ops_background@2x.png"; sourceTree = "<group>"; };
 		FA941E771772FBCA0064C810 /* ops_close_button_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ops_close_button_default@2x.png"; sourceTree = "<group>"; };
 		FA941E781772FBCA0064C810 /* ops_close_button_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ops_close_button_pressed@2x.png"; sourceTree = "<group>"; };
+		FA9AD44917843EB400EF7AF5 /* NearbyPortalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyPortalView.h; sourceTree = "<group>"; };
+		FA9AD44A17843EB400EF7AF5 /* NearbyPortalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyPortalView.m; sourceTree = "<group>"; };
 		FA9D4BDF17705C1C00A7F889 /* commBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "commBg@2x.png"; sourceTree = "<group>"; };
 		FAA0C30016B992EF00DB57E8 /* resonatorTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resonatorTexture.png; sourceTree = "<group>"; };
 		FAA0C30216B993B800DB57E8 /* default_btn_disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_btn_disabled@2x.png"; sourceTree = "<group>"; };
@@ -1111,6 +1116,7 @@
 				FACD4FFC16A428A80077837F /* marker_images */,
 				FAF5A90116A7449C00EB42CF /* Resonators */,
 				FA600FD7175E90C500F360A6 /* mods */,
+				FA6C96C3178B217E0082C7EC /* compass_ring@2x.png */,
 				FAADEEBA17821B35003435DC /* opsButton@2x.png */,
 				FAADEEBB17821B35003435DC /* opsButtonSelected@2x.png */,
 				FA325D641780A82300FDC5A5 /* discovery_location@2x.png */,
@@ -1958,6 +1964,8 @@
 			children = (
 				FAEA5859169C7E7500E2F502 /* ScannerViewController.h */,
 				FAEA585A169C7E7500E2F502 /* ScannerViewController.m */,
+				FA9AD44917843EB400EF7AF5 /* NearbyPortalView.h */,
+				FA9AD44A17843EB400EF7AF5 /* NearbyPortalView.m */,
 			);
 			name = Scanner;
 			path = Ingress;
@@ -2162,6 +2170,7 @@
 				FAAF378217610D63009BD67C /* multihack@2x.png in Resources */,
 				FAAF378317610D63009BD67C /* turret@2x.png in Resources */,
 				FA325D651780A82300FDC5A5 /* discovery_location@2x.png in Resources */,
+				FA6C96C4178B217E0082C7EC /* compass_ring@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2192,6 +2201,7 @@
 				FACD502316A441400077837F /* PortalDetailViewController.m in Sources */,
 				FA4D43B816A860D600B98C1F /* ItemsViewController.m in Sources */,
 				FA4D43D416A8AB6C00B98C1F /* MTStatusBarOverlay.m in Sources */,
+				FA9AD44B17843EB400EF7AF5 /* NearbyPortalView.m in Sources */,
 				FA52007016A99AB0004AFE4D /* PortalKeysViewController.m in Sources */,
 				FA52007216A99C98004AFE4D /* iCarousel.m in Sources */,
 				FAB5A2CD16AA165D00176C34 /* ChooserViewController.m in Sources */,

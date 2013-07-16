@@ -13,24 +13,25 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "ChooserViewController.h"
+#import "CommViewController.h"
 #import "OpsViewController.h"
 #import "GlowingLabel.h"
 #import "GUIButton.h"
 #import "APView.h"
 #import "QuickActionsMenu.h"
+#import "NearbyPortalView.h"
 
 @interface ScannerViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, OpsViewControllerDelegate> {
 	
 	__weak IBOutlet MKMapView *_mapView;
-	__weak IBOutlet UIImageView *playerArrowImage;
 	
+	CommViewController *commVC;
 	ChooserViewController *_levelChooser;
     QuickActionsMenu *quickActionsMenu;
 	
 	__weak IBOutlet UIImageView *bgImage;
     __weak IBOutlet GUIButton *opsButton;
 	__weak IBOutlet UILabel *levelLabel;
-//	__weak IBOutlet UIImageView *levelImage;
 	__weak IBOutlet APView *apView;
 	__weak IBOutlet UILabel *nicknameLabel;
 	__weak IBOutlet GlowingLabel *apLabel;

@@ -17,11 +17,15 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
+	
+	opsLabel.rightInset = 10;
+	labelBackgroundImage.image = [[UIImage imageNamed:@"ops_background.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 236)];
+	
+	CGFloat statusBarHeight = [Utilities statusBarHeight];
 	CGFloat viewWidth = [UIScreen mainScreen].bounds.size.width;
-	CGFloat viewHeight = [UIScreen mainScreen].bounds.size.height-20;
+	CGFloat viewHeight = [UIScreen mainScreen].bounds.size.height-statusBarHeight;
 
-	CGRect backgroundRect = CGRectMake(0, 0, viewWidth, viewHeight);
+	CGRect backgroundRect = CGRectMake(0, statusBarHeight, viewWidth, viewHeight);
 	UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:backgroundRect];
 	backgroundImageView.image = [UIImage imageNamed:@"missing_image"];
 	backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -56,11 +60,12 @@
 
 	TTScrollSlidingPagesController *slider = [TTScrollSlidingPagesController new];
 	slider.titleScrollerHeight = 64;
+	slider.labelsOffset = 30;
 	slider.disableTitleScrollerShadow = YES;
 	slider.disableUIPageControl = YES;
 	slider.zoomOutAnimationDisabled = YES;
 	slider.dataSource = self;
-	slider.view.frame = CGRectMake(0, 20, viewWidth, viewHeight);
+	slider.view.frame = CGRectMake(0, statusBarHeight, viewWidth, viewHeight);
 	slider.view.backgroundColor = [UIColor colorWithRed:16./255. green:32./255. blue:34./255. alpha:1.0];
 	[self.view addSubview:slider.view];
 	[self.view sendSubviewToBack:slider.view];
@@ -68,16 +73,28 @@
 
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
+- (void)viewDidLayoutSubviews {
+	CGFloat viewWidth = [UIScreen mainScreen].bounds.size.width;
+	CGFloat statusBarHeight = [Utilities statusBarHeight];
+	
+	opsLabel.frame = CGRectMake(0, statusBarHeight, viewWidth, 32);
+	labelBackgroundImage.frame = opsLabel.frame;
+	opsCloseButton.frame = CGRectMake(0, statusBarHeight, 62, 34);
+}
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
 	[[[GAI sharedInstance] defaultTracker] sendView:@"Portal Detail Screen"];
+	
+	[[LocationManager sharedInstance] addDelegate:self];
+}
 
-	if (self.isMovingFromParentViewController) {
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:DeviceSoundToggleEffects]) {
-            [[SoundManager sharedManager] playSound:@"Sound/sfx_ui_success.aif"];
-        }
-	}
+- (void)viewDidDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
+	
+	[[LocationManager sharedInstance] removeDelegate:self];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -145,6 +162,29 @@
 			break;
 	}
     return title;
+}
+
+#pragma mark - CLLocationManagerDelegate protocol
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+	
+	float yardModifier;
+	NSString *unitLabel;
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:MilesOrKM]) {
+		yardModifier = 1;
+		unitLabel = @"m";
+	} else {
+		yardModifier = 1.0936133;
+		unitLabel = @"yd";
+	}
+
+	if (_portal.isInPlayerRange) {
+		CLLocationDistance distance = [_portal distanceFromCoordinate:[LocationManager sharedInstance].playerLocation.coordinate];
+		opsLabel.text = [NSString stringWithFormat:@"Distance: %.0f%@", distance * yardModifier, unitLabel];
+	} else {
+		opsLabel.text = @"Out of Range";
+	}
+	
 }
 
 @end

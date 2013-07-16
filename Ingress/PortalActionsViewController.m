@@ -110,12 +110,17 @@
 
 	////////////////////////////
 
-	float milesModifier = 1;
-	if (![[NSUserDefaults standardUserDefaults] boolForKey:MilesOrKM]) {
+	float milesModifier;
+	NSString *unitLabel;
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:MilesOrKM]) {
+		milesModifier = 1;
+		unitLabel = @"km";
+	} else {
 		milesModifier = 0.621371192;
+		unitLabel = @"mi";
 	}
 
-	NSString *str2 = [NSString stringWithFormat:@"Energy: %.1fk\nRange: %.1f%@", self.portal.energy/1000., (self.portal.range/1000.) * milesModifier, ([[NSUserDefaults standardUserDefaults] boolForKey:MilesOrKM] ? @"km" : @"mi")];
+	NSString *str2 = [NSString stringWithFormat:@"Energy: %.1fk\nRange: %.1f%@", self.portal.energy/1000., (self.portal.range/1000.) * milesModifier, unitLabel];
 	attrStr = [[NSMutableAttributedString alloc] initWithString:str2];
 	[attrStr setAttributes:[Utilities attributesWithShadow:YES size:15 color:[UIColor colorWithRed:.56 green:1 blue:1 alpha:1]] range:NSMakeRange(0, str2.length)];
 	infoLabel2.attributedText = attrStr;
@@ -126,7 +131,6 @@
 }
 
 - (void)refreshActions {
-	NSLog(@"%s", __FUNCTION__);
 
     Player *player = [[API sharedInstance] playerForContext:[NSManagedObjectContext MR_contextForCurrentThread]];
 
@@ -352,8 +356,18 @@
 					if ([acquiredItem hasPrefix:@"L"]) {
 						int level = [[acquiredItem substringWithRange:NSMakeRange(1, 1)] intValue];
 						[acquiredItemStr setAttributes:[Utilities attributesWithShadow:YES size:15 color:[Utilities colorForLevel:level]] range:NSMakeRange(0, 2)];
+					} else if ([acquiredItem hasPrefix:@"Very Common"]) {
+						[acquiredItemStr setAttributes:[Utilities attributesWithShadow:YES size:15 color:[Utilities colorForRarity:ItemRarityVeryCommon]] range:NSMakeRange(0, acquiredItem.length)];
 					} else if ([acquiredItem hasPrefix:@"Common"]) {
-						//[acquiredItemStr setAttributes:[Utilities attributesWithShadow:YES size:15 color:[API colorForLevel:level]] range:NSMakeRange(0, 2)];
+						[acquiredItemStr setAttributes:[Utilities attributesWithShadow:YES size:15 color:[Utilities colorForRarity:ItemRarityCommon]] range:NSMakeRange(0, acquiredItem.length)];
+					} else if ([acquiredItem hasPrefix:@"Less Common"]) {
+						[acquiredItemStr setAttributes:[Utilities attributesWithShadow:YES size:15 color:[Utilities colorForRarity:ItemRarityLessCommon]] range:NSMakeRange(0, acquiredItem.length)];
+					} else if ([acquiredItem hasPrefix:@"Rare"]) {
+						[acquiredItemStr setAttributes:[Utilities attributesWithShadow:YES size:15 color:[Utilities colorForRarity:ItemRarityRare]] range:NSMakeRange(0, acquiredItem.length)];
+					} else if ([acquiredItem hasPrefix:@"Very Rare"]) {
+						[acquiredItemStr setAttributes:[Utilities attributesWithShadow:YES size:15 color:[Utilities colorForRarity:ItemRarityVeryRare]] range:NSMakeRange(0, acquiredItem.length)];
+					} else if ([acquiredItem hasPrefix:@"Extra Rare"]) {
+						[acquiredItemStr setAttributes:[Utilities attributesWithShadow:YES size:15 color:[Utilities colorForRarity:ItemRarityExtraRare]] range:NSMakeRange(0, acquiredItem.length)];
 					}
 
 					[acquiredItemsStr appendAttributedString:acquiredItemStr];
@@ -463,7 +477,6 @@
 
 #pragma mark - CLLocationManagerDelegate protocol
 
-//- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation*)newLocation fromLocation:(CLLocation*)oldLocation {
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
 	[self refreshActions];
 }
