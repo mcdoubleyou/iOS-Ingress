@@ -222,6 +222,7 @@
 		FAC475C7172DB8B100AAFFC0 /* S2Geometry.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAC475C6172DB8B100AAFFC0 /* S2Geometry.mm */; };
 		FAC6BBAE171B080900AA0600 /* ResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC6BBAD171B080900AA0600 /* ResourcesViewController.m */; };
 		FAC6BBB1171B0FFF00AA0600 /* ResourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC6BBB0171B0FFF00AA0600 /* ResourceCell.m */; };
+		FAC8C7A8179891D300D2E08F /* PullableView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC8C7A7179891D300D2E08F /* PullableView.m */; };
 		FACD502316A441400077837F /* PortalDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FACD502216A441400077837F /* PortalDetailViewController.m */; };
 		FACEE6171737E9D3006A9912 /* NSShadow+Initilalizer.m in Sources */ = {isa = PBXBuildFile; fileRef = FACEE6161737E9D3006A9912 /* NSShadow+Initilalizer.m */; };
 		FACF89E116BBFD410071A03D /* GUIButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FACF89E016BBFD410071A03D /* GUIButton.m */; };
@@ -686,6 +687,8 @@
 		FAC6BBAD171B080900AA0600 /* ResourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourcesViewController.m; sourceTree = "<group>"; };
 		FAC6BBAF171B0FFE00AA0600 /* ResourceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceCell.h; sourceTree = "<group>"; };
 		FAC6BBB0171B0FFF00AA0600 /* ResourceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceCell.m; sourceTree = "<group>"; };
+		FAC8C7A6179891D300D2E08F /* PullableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullableView.h; sourceTree = "<group>"; };
+		FAC8C7A7179891D300D2E08F /* PullableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullableView.m; sourceTree = "<group>"; };
 		FACD502116A441400077837F /* PortalDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PortalDetailViewController.h; sourceTree = "<group>"; };
 		FACD502216A441400077837F /* PortalDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PortalDetailViewController.m; sourceTree = "<group>"; };
 		FACEE6151737E9D3006A9912 /* NSShadow+Initilalizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSShadow+Initilalizer.h"; path = "NSShadow+Initializer/NSShadow+Initilalizer.h"; sourceTree = "<group>"; };
@@ -1725,6 +1728,15 @@
 			path = math;
 			sourceTree = "<group>";
 		};
+		FAC8C7A5179891D300D2E08F /* PullableView */ = {
+			isa = PBXGroup;
+			children = (
+				FAC8C7A6179891D300D2E08F /* PullableView.h */,
+				FAC8C7A7179891D300D2E08F /* PullableView.m */,
+			);
+			path = PullableView;
+			sourceTree = "<group>";
+		};
 		FACD4FFC16A428A80077837F /* marker_images */ = {
 			isa = PBXGroup;
 			children = (
@@ -1821,6 +1833,7 @@
 		FAE6AC7616A0E27B0082BBB5 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				FAC8C7A5179891D300D2E08F /* PullableView */,
 				FA849E241797EBDC00F16A7A /* Crackify */,
 				FA325D661781A8D300FDC5A5 /* BorderedTextField */,
 				FA5826AC177A2F2300BF1FD7 /* QuickActionsMenu */,
@@ -2346,6 +2359,7 @@
 				FA325D601780920800FDC5A5 /* NewPortalViewController.m in Sources */,
 				FA325D631780921400FDC5A5 /* NewPortalLocationViewController.m in Sources */,
 				FA325D691781A8EA00FDC5A5 /* BorderedTextField.m in Sources */,
+				FAC8C7A8179891D300D2E08F /* PullableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
