@@ -90,7 +90,7 @@
         <!--Intel View Controller-->
         <scene sceneID="QxF-5D-TQB">
             <objects>
-                <viewController wantsFullScreenLayout="YES" id="9cv-bD-s30" customClass="IntelViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IntelViewController" wantsFullScreenLayout="YES" id="9cv-bD-s30" customClass="IntelViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Y6C-wi-NO8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
