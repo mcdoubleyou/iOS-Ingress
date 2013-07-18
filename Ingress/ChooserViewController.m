@@ -32,6 +32,10 @@
 }
 
 + (ChooserViewController *)countChooserWithButtonTitle:(NSString *)buttonTitle maxCount:(int)maxCount completionHandler:(void (^)(int count))handler {
+	
+#warning Disable multi-drop
+	maxCount = 1;
+	
 	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
 	ChooserViewController *levelChooser = [storyboard instantiateViewControllerWithIdentifier:@"CountChooserViewController"];
 	levelChooser.view.frame = CGRectMake(0, 0, 240, 100);

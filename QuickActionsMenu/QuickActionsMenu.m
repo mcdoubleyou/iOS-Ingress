@@ -90,12 +90,16 @@
         
         // -------------------------------------------------
         
+#warning Disable mluti-pickup
+		
         button4 = [QuickActionsMenu optionButton];
         button4.tag = 4;
+		button4.hidden = YES;
         [button4 setTitle:@"COLLECT ALL" forState:UIControlStateNormal];
         [self addSubview:button4];
         
         line4 = [QuickActionsMenu optionLine];
+		line4.hidden = YES;
         [self addSubview:line4];
         
         // -------------------------------------------------
