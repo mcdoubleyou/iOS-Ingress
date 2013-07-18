@@ -7,7 +7,7 @@
 //
 
 #import <objc/objc.h>
-
+#import "Crackify.h"
 #import "LoadingViewController.h"
 #import "DAKeyboardControl.h"
 #import "GLViewController.h"
@@ -44,6 +44,46 @@
 	
 }
 
+//- (NSString *)hashString:(NSString *)paramString {
+//	
+//	NSUInteger numberOfBytes = [paramString lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+//	Byte *arrayOfByte1 = malloc(numberOfBytes);
+//	NSUInteger usedLength = 0;
+//	NSRange range = NSMakeRange(0, [paramString length]);
+//	[paramString getBytes:arrayOfByte1 maxLength:numberOfBytes usedLength:&usedLength encoding:NSUTF8StringEncoding options:0 range:range remainingRange:NULL];
+//
+//	int i = usedLength / 252;
+//	int j = usedLength % 252;
+//	int k = i * 256;
+//	if (j > 0) {
+//		i++;
+//		k += j + 4;
+//	}
+//	Byte *arrayOfByte2 = malloc(k);
+//	Byte *arrayOfByte3 = malloc(4);
+//	int m = k;
+//	for (int n = 0; n < i; n++) {
+//		arc4random_buf(arrayOfByte3, 4);
+//		memcpy(arrayOfByte2+(n * 256), arrayOfByte3, 4);
+//		int i1 = m - 4;
+//		int i2 = MIN(i1, 252);
+//		memcpy(arrayOfByte2+(4 + n * 256), arrayOfByte1+(n * 252), i2);
+//		m = i1 - i2;
+//	}
+//	
+//    NSMutableString *result = [NSMutableString stringWithCapacity:0];
+//    for (NSUInteger index = 0; index < 256*2; index++) {
+//        [result appendFormat:@"%c", arrayOfByte2[index]];
+//    }
+//	
+//	free(arrayOfByte1);
+//	free(arrayOfByte2);
+//	free(arrayOfByte3);
+//	
+//	return result;
+//	
+//}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -76,14 +116,39 @@
 
 	codenameErrorLabel.font = [UIFont fontWithName:[[[UILabel appearance] font] fontName] size:16];
 
-	////////
+	////////////////////////////////////////////
+	
+	UIDevice *device = [UIDevice currentDevice];
+	
+	/// Device Info Dictionary
+	NSDictionary *deviceInfo = @{
+		@"board": @"unknown",
+		@"bootloader": @"unknown",
+		@"brand": @"Apple",
+		@"device": EMPTYIFNIL([Utilities getSysInfoByName:"hw.machine"]),
+		@"deviceId": @"unknown",
+		@"display": @"unknown",
+		@"fingerprint": @"unknown",
+		@"hardware": @"unknown",
+		@"manufacturer": @"Apple",
+		@"model": EMPTYIFNIL([Utilities getSysInfoByName:"hw.model"]),
+		@"product": EMPTYIFNIL(device.model),
+		@"rooted": @([Crackify isJailbroken]),
+		@"tags": EMPTYIFNIL(nil),
+		@"type": @"user"
+	};
+
+	NSString *jsonDeviceInfo = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:deviceInfo options:0 error:nil] encoding:NSUTF8StringEncoding];
+	
+	////////////////////////////////////////////
 
 	jsonDict = [@{
-				@"nemesisSoftwareVersion": @"2013-06-28T23:28:27Z 760a7a8ffc90 opt",
-				@"deviceSoftwareVersion": @"4.1.1",
+				@"nemesisSoftwareVersion": @"2013-07-12T15:48:09Z d6f04b1fab4f opt",
+				@"deviceSoftwareVersion": NULLIFNIL(device.systemVersion),
+				@"a": NULLIFNIL(jsonDeviceInfo)
 	} mutableCopy];
 
-	versionString = @"v1.30.2";
+	versionString = @"v1.31.1";
 	
 }
 

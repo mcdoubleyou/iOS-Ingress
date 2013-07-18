@@ -55,6 +55,8 @@ typedef enum {
 + (BOOL)isOS7;
 + (CGFloat)statusBarHeight;
 
++ (NSString *)getSysInfoByName:(char *)typeSpecifier;
+
 + (double)randomWithMin:(double)min max:(double)max;
 
 + (void)showWarningWithTitle:(NSString *)title;

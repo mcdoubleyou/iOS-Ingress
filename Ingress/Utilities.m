@@ -7,6 +7,7 @@
 //
 
 #import "Utilities.h"
+#include <sys/sysctl.h>
 
 @implementation Utilities
 
@@ -22,6 +23,21 @@
 
 + (CGFloat)statusBarHeight {
 	return [UIApplication sharedApplication].statusBarFrame.size.height;
+}
+
+#pragma mark - System Info
+
++ (NSString *)getSysInfoByName:(char *)typeSpecifier {
+    size_t size;
+    sysctlbyname(typeSpecifier, NULL, &size, NULL, 0);
+    
+    char *answer = malloc(size);
+    sysctlbyname(typeSpecifier, answer, &size, NULL, 0);
+    
+    NSString *results = [NSString stringWithCString:answer encoding: NSUTF8StringEncoding];
+	
+    free(answer);
+    return results;
 }
 
 #pragma mark - Random
