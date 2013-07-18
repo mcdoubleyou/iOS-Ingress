@@ -130,6 +130,7 @@
 		FA82129F1722C21E0019E5FD /* positive_btn_background_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8212991722C21E0019E5FD /* positive_btn_background_pressed@2x.png */; };
 		FA82A02D175FA361005C8415 /* playerArrow_aliens@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA82A02B175FA361005C8415 /* playerArrow_aliens@2x.png */; };
 		FA82A02E175FA361005C8415 /* playerArrow_resistance@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA82A02C175FA361005C8415 /* playerArrow_resistance@2x.png */; };
+		FA849E271797EC0800F16A7A /* Crackify.m in Sources */ = {isa = PBXBuildFile; fileRef = FA849E261797EC0800F16A7A /* Crackify.m */; };
 		FA85064E175DFB9700410D53 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA85064D175DFB9700410D53 /* Reveal.framework */; };
 		FA850650175DFBAF00410D53 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA85064F175DFBAF00410D53 /* CFNetwork.framework */; };
 		FA859F19173C3537002A2117 /* ada_refactor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA859F17173C3537002A2117 /* ada_refactor@2x.png */; };
@@ -481,6 +482,8 @@
 		FA8212991722C21E0019E5FD /* positive_btn_background_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "positive_btn_background_pressed@2x.png"; sourceTree = "<group>"; };
 		FA82A02B175FA361005C8415 /* playerArrow_aliens@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playerArrow_aliens@2x.png"; sourceTree = "<group>"; };
 		FA82A02C175FA361005C8415 /* playerArrow_resistance@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playerArrow_resistance@2x.png"; sourceTree = "<group>"; };
+		FA849E251797EC0800F16A7A /* Crackify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Crackify.h; path = Crackify/Crackify.h; sourceTree = "<group>"; };
+		FA849E261797EC0800F16A7A /* Crackify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Crackify.m; path = Crackify/Crackify.m; sourceTree = "<group>"; };
 		FA85064D175DFB9700410D53 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reveal.framework; path = Reveal/Reveal.framework; sourceTree = "<group>"; };
 		FA85064F175DFBAF00410D53 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		FA859F17173C3537002A2117 /* ada_refactor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ada_refactor@2x.png"; sourceTree = "<group>"; };
@@ -1321,6 +1324,15 @@
 			name = 3D;
 			sourceTree = "<group>";
 		};
+		FA849E241797EBDC00F16A7A /* Crackify */ = {
+			isa = PBXGroup;
+			children = (
+				FA849E251797EC0800F16A7A /* Crackify.h */,
+				FA849E261797EC0800F16A7A /* Crackify.m */,
+			);
+			name = Crackify;
+			sourceTree = "<group>";
+		};
 		FA8C24D516B3257D000C8738 /* Custom Buttons */ = {
 			isa = PBXGroup;
 			children = (
@@ -1809,6 +1821,7 @@
 		FAE6AC7616A0E27B0082BBB5 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				FA849E241797EBDC00F16A7A /* Crackify */,
 				FA325D661781A8D300FDC5A5 /* BorderedTextField */,
 				FA5826AC177A2F2300BF1FD7 /* QuickActionsMenu */,
 				FAB7BA231779D94B0047C7C0 /* UIControl+Blocks */,
@@ -2222,6 +2235,7 @@
 				FA7AC9D816D14C5400505404 /* SoundManager.m in Sources */,
 				FA143F7A16D526450007330F /* DeployedResonatorView.m in Sources */,
 				FAA7E4F616D7E429007EAE9A /* MediaItemsViewController.m in Sources */,
+				FA849E271797EC0800F16A7A /* Crackify.m in Sources */,
 				FAA7E4F716D7E42B007EAE9A /* PortalKeyCell.m in Sources */,
 				FAF618B416DBDA6700AF0742 /* WheelActivityIndicatorView.m in Sources */,
 				FAC6BBAE171B080900AA0600 /* ResourcesViewController.m in Sources */,
