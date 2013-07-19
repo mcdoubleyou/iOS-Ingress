@@ -39,6 +39,12 @@
 	if (![[NSUserDefaults standardUserDefaults] objectForKey:MilesOrKM]) {
 		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:MilesOrKM];
 	}
+	
+	if (![[NSUserDefaults standardUserDefaults] objectForKey:BanAlertDisplayed]) {
+		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:BanAlertDisplayed];
+		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"This is unofficial Ingress port and you are using it at your own risk. You can get banned or have account reset to level 1." delegate:self cancelButtonTitle:@"I Agree" otherButtonTitles:nil];
+		[alertView show];
+	}
 
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	
@@ -120,25 +126,25 @@
 	
 	UIDevice *device = [UIDevice currentDevice];
 	
-	/// Device Info Dictionary
-	NSDictionary *deviceInfo = @{
-		@"board": @"unknown",
-		@"bootloader": @"unknown",
-		@"brand": @"Apple",
-		@"device": EMPTYIFNIL([Utilities getSysInfoByName:"hw.machine"]),
-		@"deviceId": @"unknown",
-		@"display": @"unknown",
-		@"fingerprint": @"unknown",
-		@"hardware": @"unknown",
-		@"manufacturer": @"Apple",
-		@"model": EMPTYIFNIL([Utilities getSysInfoByName:"hw.model"]),
-		@"product": EMPTYIFNIL(device.model),
-		@"rooted": @([Crackify isJailbroken]),
-		@"tags": EMPTYIFNIL(nil),
-		@"type": @"user"
-	};
+//	/// Device Info Dictionary
+//	NSDictionary *deviceInfo = @{
+//		@"board": @"unknown",
+//		@"bootloader": @"unknown",
+//		@"brand": @"Apple",
+//		@"device": EMPTYIFNIL([Utilities getSysInfoByName:"hw.machine"]),
+//		@"deviceId": @"unknown",
+//		@"display": @"unknown",
+//		@"fingerprint": @"unknown",
+//		@"hardware": @"unknown",
+//		@"manufacturer": @"Apple",
+//		@"model": EMPTYIFNIL([Utilities getSysInfoByName:"hw.model"]),
+//		@"product": EMPTYIFNIL(device.model),
+//		@"rooted": @([Crackify isJailbroken]),
+//		@"tags": EMPTYIFNIL(nil),
+//		@"type": @"user"
+//	};
 
-	NSString *jsonDeviceInfo = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:deviceInfo options:0 error:nil] encoding:NSUTF8StringEncoding];
+//	NSString *jsonDeviceInfo = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:deviceInfo options:0 error:nil] encoding:NSUTF8StringEncoding];
 	
 	////////////////////////////////////////////
 
