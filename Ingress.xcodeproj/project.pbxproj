@@ -390,6 +390,7 @@
 		FA3FC31217369E4D009CD94A /* green_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green_bg@2x.png"; sourceTree = "<group>"; };
 		FA47817D16AC8FE00041FDFB /* enl_res_energy_fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "enl_res_energy_fill@2x.png"; sourceTree = "<group>"; };
 		FA47817E16AC8FE00041FDFB /* hum_res_energy_fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hum_res_energy_fill@2x.png"; sourceTree = "<group>"; };
+		FA4CCD92179DDD2600DF5BE4 /* Ingress.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Ingress.entitlements; sourceTree = "<group>"; };
 		FA4D43AB16A8335500B98C1F /* shield@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shield@2x.png"; sourceTree = "<group>"; };
 		FA4D43AE16A8386A00B98C1F /* innerwheel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "innerwheel@2x.png"; sourceTree = "<group>"; };
 		FA4D43AF16A8386A00B98C1F /* outerwheel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outerwheel@2x.png"; sourceTree = "<group>"; };
@@ -1970,6 +1971,7 @@
 		FAEA5842169C7E7500E2F502 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FA4CCD92179DDD2600DF5BE4 /* Ingress.entitlements */,
 				FAEA5843169C7E7500E2F502 /* Ingress-Info.plist */,
 				FAEA5844169C7E7500E2F502 /* InfoPlist.strings */,
 				FAEA5847169C7E7500E2F502 /* main.m */,
@@ -2448,6 +2450,7 @@
 		FAEA585F169C7E7500E2F502 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Ingress/Ingress.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2478,6 +2481,7 @@
 		FAEA5860169C7E7500E2F502 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Ingress/Ingress.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
