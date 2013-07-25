@@ -94,6 +94,12 @@
 	if (!selectedButton) {
 		[self menuSelected:(UIButton *)[buttonsScrollView viewWithTag:10]];
 	}
+
+	CGFloat statusBarHeight = [Utilities statusBarHeight];
+	CGFloat viewWidth = [UIScreen mainScreen].bounds.size.width;
+	CGFloat viewHeight = [UIScreen mainScreen].bounds.size.height-statusBarHeight;
+
+	selectedViewController.view.frame = CGRectMake(0, statusBarHeight+76, viewWidth, viewHeight-76);
 }
 
 - (void)viewDidLayoutSubviews {
@@ -134,8 +140,8 @@
 #pragma mark - Menu
 
 - (void)menuSelected:(UIButton *)button {
-	
-	if ([button isEqual:selectedButton]) { return; }
+	if ([button isEqual:selectedButton])
+		return;
 	
     if ([[NSUserDefaults standardUserDefaults] boolForKey:DeviceSoundToggleEffects]) {
         [[SoundManager sharedManager] playSound:@"Sound/sfx_ui_success.aif"];
@@ -184,16 +190,12 @@
 			viewController = [storyboard instantiateViewControllerWithIdentifier:@"DeviceViewController"];
 			break;
 	}
-	
-	CGFloat statusBarHeight = [Utilities statusBarHeight];
-	CGFloat viewWidth = [UIScreen mainScreen].bounds.size.width;
-	CGFloat viewHeight = [UIScreen mainScreen].bounds.size.height-statusBarHeight;
-	viewController.view.frame = CGRectMake(0, statusBarHeight+76, viewWidth, viewHeight-76);
-	
+
 	[self.view addSubview:viewController.view];
 	[self.view sendSubviewToBack:viewController.view];
 	[self addChildViewController:viewController];
-	selectedViewController = viewController;
+
+	selectedViewController = viewController;	
 }
 
 @end
